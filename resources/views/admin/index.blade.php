@@ -38,9 +38,9 @@
               <div class="dropdown mb-2">
               </div>
             </div>
-            <div class="row">
+            <div class="row ">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="ml-10">12 <span><i class="" data-feather="inbox"></i></span></h3> 
+                <h3 class="">{{$jumlahmasuk}}<i class="" data-feather="inbox"></i></span></h3> 
               </div>
               <div class="col-6 col-md-12 col-xl-7">
                 <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
@@ -59,7 +59,7 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-4">14 <span><i class="" data-feather="archive"></i></span></h3>
+                <h3 class="mb-4">{{$jumlahkeluar}}<span><i class="" data-feather="archive"></i></span></h3>
               </div>
               <div class="col-6 col-md-12 col-xl-7">
                 <div id="ordersChart" class="mt-md-3 mt-xl-0"></div>
@@ -78,7 +78,7 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2 mr-5">5 <span><i class="" data-feather="users"></i> </span></h3>
+                <h3 class="mb-2 mr-5">{{$totalUser}}<span><i class="" data-feather="users"></i> </span></h3>
               </div>
               <div class="col-6 col-md-12 col-xl-7">
                 <div id="growthChart" class="mt-md-3 mt-xl-0"></div>
@@ -103,59 +103,43 @@
           <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th class="pt-0">No</th>
                 <th class="pt-0">Id Barang</th>
                 <th class="pt-0">Serial Number</th>
                 <th class="pt-0">Nama Barang</th>
                 <th class="pt-0">Jenis Barang</th>
-                <th class="pt-0">Qty</th>
-                <th class="pt-0">Lokasi</th>
+                <th class="pt-0">Quantity</th>
                 <th class="pt-0">Keterangan</th> 
               </tr>
             </thead>
             <tbody>
+              @foreach($masukbarang as $item)
               <tr>
-                <td>1</td>
-                <td>aa2</td>
-                <td>aa123</td>
-                <td>Tv</td>
-                <td>Elektronik</td>
-                <td>2</td>
-                <td>Daman</td>
+                <td>{{$item->id_barang}}</td>
+                <td>{{$item->serial_number}}</td>
+                <td>{{$item->nama_barang}}</td>
+                <td>{{$item->jenis_barang}}</td>
+                <td>{{$item->jumlah_barang}}</td>
                 <td>   
                   <a href="" type="text" class="text-white bg-success p-2">
-                    <label for="">Register</label>
+                    <label for="">Masuk Barang</label>
                   </a>
                 </td>
               </tr>
+              @endforeach
+              @foreach ($keluarbarang as $item1)
               <tr>
-                <td>2</td>
-                <td>aa3</td>
-                <td>a3023</td>
-                <td>Komputer</td>
-                <td>Elektronik</td>
-                <td>2</td>
-                <td>Daman</td>
+                <td>{{$item1->id_barang}}</td>
+                <td>{{$item1->serial_number}}</td>
+                <td>{{$item1->nama_barang}}</td>
+                <td>{{$item1->jenis_barang}}</td>
+                <td>{{$item1->jumlah_barang}}</td>
                 <td>
                 <span  type="text" class="text-white bg-danger p-2">
-                    <label for="">Diambil</label>
+                    <label for="">Keluar Barang</label>
                   </span>
                 </td>
               </tr>
-              <tr>
-                <td>3</td>
-                <td>aa4</td>
-                <td>a4951</td>
-                <td>Printer</td>
-                <td>Elektronik</td>
-                <td>2</td>
-                <td>Daman</td>
-                <td>
-                  <span type="text" class="text-white bg-warning p-2">
-                    <label for="">Dipinjam</label>
-                  </span>
-                </td>
-              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

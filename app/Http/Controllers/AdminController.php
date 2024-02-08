@@ -1,16 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\MasukBarang;
+use App\Models\KeluarBarang;
 use Illuminate\Support\Facades\Hash;
+
 
 class AdminController extends Controller
 {
     public function AdminDashboard()
     {
-        return view('admin.index');
+      DB::table('masuk_barangs')->count();
+        $jumlahmasuk = MasukBarang::all()->sum('jumlah_barang');
+        // data terbaru
+        $masukbarang = MasukBarang::orderBy('id_barang', 'desc')->limit(10)->get();
+      DB::table('keluar_barangs')->count();
+        $jumlahkeluar = KeluarBarang::all()->sum('jumlah_barang');
+        //data terbaru
+        $keluarbarang = KeluarBarang::orderBy('id_barang', 'desc')->limit(10)->get();
+
+      $totalUser = User::count();
+      
+        return view('admin.index')->with(compact('jumlahmasuk', 'jumlahkeluar', 'totalUser', 'keluarbarang', 'masukbarang'));
     } //End Method
     
     
