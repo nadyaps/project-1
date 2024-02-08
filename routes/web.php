@@ -65,6 +65,10 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
   Route::get('pinjambarang' , [Controller::class, 'PinjamBarang'])
   ->name('pinjam.barang');
+
+  Route::fallback(function () {
+    return view('404_page');
+  });
   
 }); //End group User Middleware
 
