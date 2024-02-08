@@ -18,16 +18,20 @@
           </div>
           <div id="content">
             <ul class="timeline">
-              <li class="event" data-date="12:30 - 1:00pm">
-                <h3 class="title">Registration</h3>
-                  <p>Get here on time, it's first come first serve. Be late, get turned away.</p>
+              <li class="event" data-date="2021-6-18">
+                <h3 class="title">Barang dikembalikan</h3>
               </li>
-              <li class="event" data-date="2:30 - 4:00pm">
-                <h3 class="title">Opening Ceremony</h3>
-                  <p>Get ready for an exciting event, this will kick off in amazing fashion with MOP & Busta Rhymes as an opening show.</p>    
+              <li class="event" data-date="2021-3-23">
+                <h3 class="title">Barang dipinjam</h3>
+              </li>
+              <li class="event" data-date="2021-2-20">
+                <h3 class="title">Barang ditambahkan</h3>
+              </li>
+              <li class="event" data-date="2021-2-19">
+                <h3 class="title">Registrasi barang</h3>
               </li>
             </ul>
-          </div>
+          </div>          
         </div>
     </div>
   </div>
