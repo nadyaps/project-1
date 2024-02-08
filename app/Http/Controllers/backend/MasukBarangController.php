@@ -14,6 +14,11 @@ class MasukBarangController extends Controller
       return view('admin.masukBarang.register_barang', compact('table'));
     } //End Method
 
+    public function AddRegister()
+    {
+      return view('admin.masukBarang.add_register');
+    } //End Method
+
     public function StoreRegister(Request $request)
     {
       $request->validate([
@@ -160,8 +165,6 @@ class MasukBarangController extends Controller
 
         session()->flash('success', 'Berhasil menambahkan jumlah barang.');
         return redirect()->route('tambah.barang');
-    }
-
-
+    }//End Method
 
 }
