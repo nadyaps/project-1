@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers\backend;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\PengambilanBarang;
+use App\Models\MasukBarang;
+use App\Models\User;
+
+class PengambilanBarangController extends Controller
+{
+   public function AmbilBarang()
+   {
+     $ambil = PengambilanBarang::all();
+     return view('ambilBarang.ambil', compact('ambil'));
+   } //End Method
+
+    public function CreateAmbilBarang()
+    {
+      $data = MasukBarang::all();
+      $user = User::all();
+      return view('ambilBarang.create_ambil', compact('data', 'user'));
+    } //End Method
+
+    public function StoreAmbilBarang(Request $request)
+    {
+      $request->validate([
+        'id_barang' => 'required',
+        'jumlah_ambil' => 'required',
+        'tanggal_ambil' => 'required',
+        'deskripsi' => 'required',
+        'photo_ambilbarang' => 'required',
+      ]);
+
+      $data = new PengambilanBarang;
+      $data->jumlah_ambil = $request->jumlah_ambil;
+      $data->tanggal_ambil = $request->tanggal_ambil;
+      $data->deskripsi = $request->deskripsi;
+      $data->status = 'Pending';
+      $data->user_id = Auth::user()->id;
+      $data->barang_id = MasukBarang::find($request->id_barang)->id;
+      if ($data->barang->jumlah_barang < $request->jumlah_pinjam) {
+        $notification = array(
+            'message' => 'Stock barang tidak mencukupi',
+            'alert-type' => 'error'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    if($request->file('photo_ambilbarang')){
+      $file = $request->file('photo_ambilbarang');
+      @unlink(public_path('barangambil_image/'.$data->photo_ambilbarang));
+      $filename = date('YmdHis').$file->getClientOriginalName();
+      $file->move(public_path('barangambil_image'),$filename);
+      $data['photo_ambilbarang'] = $filename;
+    }
+
+      $data->save();
+      $notification = array(
+        'message' => 'Permintaan Ambil Barang berhasil',
+        'alert-type' => 'success'
+      );
+      return redirect()->route('ambil.barang')->with($notification);
+    } //End Method
+
+    public function ViewAmbilBarang($id)
+    {
+      $ambil = PengambilanBarang::find($id);
+      return view('ambilBarang.view_ambil', compact('ambil'));
+    } //End Method
+}
