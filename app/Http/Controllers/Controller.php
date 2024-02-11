@@ -98,10 +98,6 @@ class Controller extends BaseController
   } //End Method
 
 
-  public function KembaliBarang()
-  {
-      return view('keluarBarangUser.kembali');
-  } //End Method
 
 
 
