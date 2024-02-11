@@ -10,6 +10,7 @@ use App\Http\Controllers\backend\ListBarangController;
 use App\Http\Controllers\backend\HistoryBarangController;
 use App\Http\Controllers\backend\PeminjamanBarangController;
 use App\Http\Controllers\backend\PengambilanBarangController;
+use App\Http\Controllers\backend\PengembalianBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,9 +60,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
   Route::post('update/password' , [Controller::class, 'UpdatePassword'])
   ->name('update.password');
 
-  Route::get('kembalibarang' , [Controller::class, 'KembaliBarang'])
-  ->name('kembali.barang');
-
   Route::fallback(function () {
     return view('404_page');
   });
@@ -76,7 +74,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('create/pinjam/barang' , 'CreatePinjamBarang')->name('create.pinjam.barang');
     Route::post('store/pinjam/barang' , 'StorePinjamBarang')->name('store.pinjam.barang');
     Route::get('view/pinjam/barang/{id}' , 'ViewPinjamBarang')->name('view.pinjam.barang');
-    Route::post('update/pinjam/barang/' , 'UpdatePinjamBarang')->name('update.pinjam.barang');
     Route::get('delete/pinjam/barang/{id}' , 'DeletePinjamBarang')->name('delete.pinjam.barang');
 
   });
@@ -87,10 +84,21 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('create/ambil/barang' , 'CreateAmbilBarang')->name('create.ambil.barang');
     Route::post('store/ambil/barang' , 'StoreAmbilBarang')->name('store.ambil.barang');
     Route::get('view/ambil/barang/{id}' , 'ViewAmbilBarang')->name('view.ambil.barang');
-    Route::post('update/ambil/barang/' , 'UpdateAmbilBarang')->name('update.ambil.barang');
     Route::get('delete/ambil/barang/{id}' , 'DeleteAmbilBarang')->name('delete.ambil.barang');
 
   });
+
+  Route::controller(PengembalianBarangController::class)->group(function(){
+
+    Route::get('kembali/barang' , 'KembaliBarang')->name('kembali.barang');
+    Route::get('create/kembali/barang' , 'CreateKembaliBarang')->name('create.kembali.barang');
+    Route::post('store/kembali/barang' , 'StoreKembaliBarang')->name('store.kembali.barang');
+    Route::get('view/kembali/barang/{id}' , 'ViewKembaliBarang')->name('view.kembali.barang');
+    Route::get('delete/kembali/barang/{id}' , 'DeleteKembaliBarang')->name('delete.kembali.barang');
+
+  });
+
+  
 
 }); // End group Auth + Role User Middleware
 
@@ -158,6 +166,9 @@ Route::controller(MasukBarangController::class)->group(function(){
 Route::controller(KeluarBarangController::class)->group(function(){
 
   Route::get('/admin/pengembalianbarang' , 'PengembalianBarang')->name('pengembalian.barang');
+  Route::get('/admin/accept/kembali/{id}', 'AcceptKembali')->name('accept.kembali');
+  Route::get('/admin/reject/kembali/{id}', 'RejectKembali')->name('reject.kembali');
+  Route::get('/admin/view/pengembalian/{id}', 'ViewPengembalian')->name('view.pengembalian');
 
   Route::get('/admin/pengambilanbarang' , 'PengambilanBarang')->name('pengambilan.barang');
   Route::get('/admin/accept/ambil/{id}', 'AcceptAmbil')->name('accept.ambil');
