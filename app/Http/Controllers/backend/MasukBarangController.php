@@ -154,9 +154,9 @@ class MasukBarangController extends Controller
 
     public function TambahQuantity(Request $request)
     {
-        $serial_number = $request->input('serial_number');
+      $pid = $request->id;
 
-        $barang = MasukBarang::findOrFail($serial_number);
+        $barang = MasukBarang::findOrFail($pid);
 
         $barang->jumlah_barang += $request->input('jumlah_barang');
         $barang->tanggal_masuk = now();

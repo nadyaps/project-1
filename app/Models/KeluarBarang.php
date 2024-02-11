@@ -9,4 +9,8 @@ class KeluarBarang extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function barang ()
+    {
+      return $this->belongsTo(MasukBarang::class);
+    }
 }

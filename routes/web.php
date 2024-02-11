@@ -8,6 +8,8 @@ use App\Http\Controllers\backend\MasukBarangController;
 use App\Http\Controllers\backend\KeluarBarangController;
 use App\Http\Controllers\backend\ListBarangController;
 use App\Http\Controllers\backend\HistoryBarangController;
+use App\Http\Controllers\backend\PeminjamanBarangController;
+use App\Http\Controllers\backend\PengambilanBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,14 +59,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
   Route::post('update/password' , [Controller::class, 'UpdatePassword'])
   ->name('update.password');
 
-  Route::get('ambilbarang' , [Controller::class, 'AmbilBarang'])
-  ->name('ambil.barang');
-
   Route::get('kembalibarang' , [Controller::class, 'KembaliBarang'])
   ->name('kembali.barang');
-
-  Route::get('pinjambarang' , [Controller::class, 'PinjamBarang'])
-  ->name('pinjam.barang');
 
   Route::fallback(function () {
     return view('404_page');
@@ -72,6 +68,31 @@ Route::middleware(['auth', 'role:user'])->group(function () {
   
 }); //End group User Middleware
 
+Route::middleware(['auth', 'role:user'])->group(function () {
+
+  Route::controller(PeminjamanBarangController::class)->group(function(){
+
+    Route::get('pinjam/barang' , 'PinjamBarang')->name('pinjam.barang');
+    Route::get('create/pinjam/barang' , 'CreatePinjamBarang')->name('create.pinjam.barang');
+    Route::post('store/pinjam/barang' , 'StorePinjamBarang')->name('store.pinjam.barang');
+    Route::get('view/pinjam/barang/{id}' , 'ViewPinjamBarang')->name('view.pinjam.barang');
+    Route::post('update/pinjam/barang/' , 'UpdatePinjamBarang')->name('update.pinjam.barang');
+    Route::get('delete/pinjam/barang/{id}' , 'DeletePinjamBarang')->name('delete.pinjam.barang');
+
+  });
+
+  Route::controller(PengambilanBarangController::class)->group(function(){
+
+    Route::get('ambil/barang' , 'AmbilBarang')->name('ambil.barang');
+    Route::get('create/ambil/barang' , 'CreateAmbilBarang')->name('create.ambil.barang');
+    Route::post('store/ambil/barang' , 'StoreAmbilBarang')->name('store.ambil.barang');
+    Route::get('view/ambil/barang/{id}' , 'ViewAmbilBarang')->name('view.ambil.barang');
+    Route::post('update/ambil/barang/' , 'UpdateAmbilBarang')->name('update.ambil.barang');
+    Route::get('delete/ambil/barang/{id}' , 'DeleteAmbilBarang')->name('delete.ambil.barang');
+
+  });
+
+}); // End group Auth + Role User Middleware
 
 
 // Admin Group Middleware
@@ -132,24 +153,29 @@ Route::controller(MasukBarangController::class)->group(function(){
     Route::get('/admin/addtambah' , 'AddTambah')->name('add.tambah');
     Route::get('/admin/search/tambah' , 'SearchTambah')->name('barang.search.tambah');
     Route::post('/admin/tambah/quantity' , 'TambahQuantity')->name('barang.tambah.quantity');
-
-
 });
 
 Route::controller(KeluarBarangController::class)->group(function(){
 
-  Route::get('/admin/peminjamanbarang' , 'PeminjamanBarang')->name('peminjaman.barang');
-
   Route::get('/admin/pengembalianbarang' , 'PengembalianBarang')->name('pengembalian.barang');
 
   Route::get('/admin/pengambilanbarang' , 'PengambilanBarang')->name('pengambilan.barang');
+  Route::get('/admin/accept/ambil/{id}', 'AcceptAmbil')->name('accept.ambil');
+  Route::get('/admin/reject/ambil/{id}', 'RejectAmbil')->name('reject.ambil');
+  Route::get('/admin/view/pengambilan/{id}', 'ViewPengambilan')->name('view.pengambilan');
 
+  Route::get('/admin/peminjamanbarang' , 'PeminjamanBarang')->name('peminjaman.barang');
+  Route::get('/accept/request/{id}', 'AcceptRequest')->name('accept.request');
+  Route::get('/reject/request/{id}', 'RejectRequest')->name('reject.request');
+  Route::get('/view/peminjaman/{id}', 'ViewPeminjaman')->name('view.peminjaman');
 });
+// End Keluar Barang Group Route
+
 
 Route::controller(ListBarangController::class)->group(function(){
   
     Route::get('/admin/listbarang' , 'ListBarang')->name('list.barang');
-    Route::get('/admin/viewlistbarang' , 'ViewListBarang')->name('view.list_barang');
+    Route::get('/admin/viewlistbarang/{id}' , 'ViewListBarang')->name('view.list_barang');
 });    
 
 Route::controller(HistoryBarangController::class)->group(function(){

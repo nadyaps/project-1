@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('list_barangs', function (Blueprint $table) {
             $table->id();
-            $table->string('id_barang');
-            $table->string('serial_number');
-            $table->string('nama_barang');
-            $table->string('jenis_barang');
-            $table->string('jumlah_barang');
-            $table->string('deskripsi');
+            $table->unsignedBigInteger('barang_id');
+            $table->foreign('barang_id')->references('id')->on('masuk_barangs');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->enum('status',['dipinjam','diambil', 'ada'])->default('ada');
             $table->timestamps();
         });

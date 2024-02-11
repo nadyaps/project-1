@@ -97,19 +97,12 @@ class Controller extends BaseController
     return back()->with($notification);
   } //End Method
 
-  public function AmbilBarang()
-  {
-      return view('keluarBarangUser.ambil');
-  } //End Method
 
   public function KembaliBarang()
   {
       return view('keluarBarangUser.kembali');
   } //End Method
 
-  public function PinjamBarang()
-  {
-      return view('keluarBarangUser.pinjam');
-  } //End Method
+
 
 }

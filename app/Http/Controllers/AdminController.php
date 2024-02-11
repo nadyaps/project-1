@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\MasukBarang;
 use App\Models\KeluarBarang;
+use App\Models\PeminjamanBarang;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -17,15 +18,15 @@ class AdminController extends Controller
       DB::table('masuk_barangs')->count();
         $jumlahmasuk = MasukBarang::all()->sum('jumlah_barang');
         // data terbaru
-        $masukbarang = MasukBarang::orderBy('id_barang', 'desc')->limit(10)->get();
-      DB::table('keluar_barangs')->count();
-        $jumlahkeluar = KeluarBarang::all()->sum('jumlah_barang');
+        $masukbarang = MasukBarang::orderBy('id_barang', 'desc')->limit(5)->get();
+      DB::table('peminjaman_barangs')->count();
+        $jumlahpinjam = PeminjamanBarang::where('status', 'Approved')->count();
         //data terbaru
-        $keluarbarang = KeluarBarang::orderBy('id_barang', 'desc')->limit(10)->get();
+        $keluarbarang = PeminjamanBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(5)->get();
 
       $totalUser = User::count();
       
-        return view('admin.index')->with(compact('jumlahmasuk', 'jumlahkeluar', 'totalUser', 'keluarbarang', 'masukbarang'));
+        return view('admin.index')->with(compact('jumlahmasuk', 'jumlahpinjam', 'totalUser', 'keluarbarang', 'masukbarang'));
     } //End Method
     
     
