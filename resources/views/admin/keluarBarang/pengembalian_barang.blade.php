@@ -15,79 +15,47 @@
             <thead>
               <tr>
                 <th>Id Barang</th>
-                <th>Serial Number</th>
-                <th>Tanggal Pengembalian</th>
                 <th>Nama Barang</th>
+                <th>Tanggal Pengembalian</th>
+                <th>Quantity</th>
                 <th>Peminjam</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
+            @foreach( $kembali as $item )  
               <tr>
-                <td>1</td>
-                <td>123456</td>
-                <td>12-12-2021</td>
-                <td>Keyboard</td>
-                <td>John Doe</td>
+                <td>{{$item->barang->barang->id_barang}}</td>
+                <td>{{$item->barang->barang->nama_barang}}</td>
+                <td>{{$item->tanggal_kembali}}</td>
+                <td>{{$item->jumlah_kembali}}</td>
+                <td>{{$item->user->name}}</td>
                 <td>
-                  <a href="" class="btn btn-outline-primary btn-icon">
+                @if($item->status == 'approved')
+                <span type="text" class="text-white bg-success p-2">
+                  <label for="">Approved</label>
+                </span>
+                @elseif($item->status == 'reject')
+                <span type="text" class="text-white bg-danger p-2">
+                  <label for="">Rejected</label>
+                </span>
+                @else
+                  <a href="{{route('accept.kembali',  ['id' => $item->id])}}" class="btn btn-outline-primary btn-icon">
                     <i data-feather="check-square"></i>
                   </a>                  
-                  <a href="" class="btn btn-outline-danger btn-icon">
+                  <a href="{{route('reject.kembali',  ['id' => $item->id])}}" class="btn btn-outline-danger btn-icon">
                     <i data-feather="x"></i>
                   </a>  
+                @endif
                 </td>
                 <td>
-                  <button type="button" class="btn btn-primary btn-icon">
+                  <a href="{{route ('view.pengambilan', ['id' => $item->id])}}" type="button" class="btn btn-primary btn-icon">
                     <i data-feather="eye"></i>
-                  </button>
-                  <button type="button" class="btn btn-danger btn-icon">
-                    <i data-feather="trash-2"></i>
-                  </button>
+                  </a>
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>678910</td>
-                <td>11-04-2006</td>
-                <td>Lemari</td>
-                <td>Lili</td>
-                <td>
-                  <span type="text" class="text-white bg-danger p-2">
-                    <label for="">Ditolak</label>
-                  </span>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-primary btn-icon">
-                    <i data-feather="eye"></i>
-                  </button>
-                  <button type="button" class="btn btn-danger btn-icon">
-                    <i data-feather="trash-2"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>678910</td>
-                <td>11-04-2006</td>
-                <td>Lemari</td>
-                <td>Lili</td>
-                <td>
-                  <span type="text" class="text-white bg-success p-2">
-                    <label for="">Disetujui</label>
-                  </span>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-primary btn-icon">
-                    <i data-feather="eye"></i>
-                  </button>
-                  <button type="button" class="btn btn-danger btn-icon">
-                    <i data-feather="trash-2"></i>
-                  </button>
-                </td>
-              </tr>
-              
+            @endforeach
             </tbody>
           </table>
         </div>

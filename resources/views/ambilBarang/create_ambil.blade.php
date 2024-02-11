@@ -18,7 +18,9 @@
           <label for="id_barang">Nama Barang</label>
           <select name="id_barang" id="id_barang" class="form-control">
               @foreach ($data as $barang)
-                  <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+                @if ($barang->jumlah_barang != 0)
+                  <option value="{{ $barang->id }}">{{ $barang->nama_barang }} <span>{{ $barang->jumlah_barang}}</span></option>
+                @endif  
               @endforeach
           </select>
         </div>
