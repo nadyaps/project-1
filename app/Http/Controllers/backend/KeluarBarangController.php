@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\KeluarBarang;
 use App\Models\PeminjamanBarang;
 use App\Models\PengambilanBarang;
+use App\Models\PengembalianBarang;
 use App\Models\MasukBarang;
+
 
 class KeluarBarangController extends Controller
 {
@@ -88,8 +90,84 @@ class KeluarBarangController extends Controller
 
   public function PengembalianBarang()
   {
-    $table = KeluarBarang::latest()->get();
-    return view('admin.keluarBarang.pengembalian_barang');
+    $kembali = PengembalianBarang::all();
+    return view('admin.keluarBarang.pengembalian_barang', compact('kembali'));
+  }
+
+  public function ViewPengembalian($id)
+  {
+    $kembali = PengembalianBarang::find($id);
+    return view('admin.keluarBarang.view_pengembalian', compact('kembali'));
+  }
+
+  public function AcceptKembali($id)
+  {
+      $kembaliBarang = PengembalianBarang::find($id);
+  
+      if ($kembaliBarang) {
+          $kembaliBarang->status = 'approved';
+  
+          $masukBarang = MasukBarang::find($kembaliBarang->barang_id);
+  
+          if ($masukBarang) {
+              $masukBarang->jumlah_barang = $masukBarang->jumlah_barang + $kembaliBarang->jumlah_kembali;
+              $masukBarang->save();
+  
+              $peminjamanBarang = PeminjamanBarang::where('barang_id', $kembaliBarang->barang_id)->first();
+  
+              if ($peminjamanBarang) {
+                  $peminjamanBarang->jumlah_pinjam = $peminjamanBarang->jumlah_pinjam - $kembaliBarang->jumlah_kembali;
+                  $peminjamanBarang->save();
+              }
+  
+              $kembaliBarang->save();
+  
+              $notification = array(
+                  'message' => 'Pengembalian Barang Berhasil di Approve',
+                  'alert-type' => 'success'
+              );
+  
+              return redirect()->back()->with($notification);
+          } else {
+              $notification = array(
+                  'message' => 'Barang tidak ditemukan',
+                  'alert-type' => 'error'
+              );
+  
+              return redirect()->back()->with($notification);
+          }
+      } else {
+          $notification = array(
+              'message' => 'Pengembalian Barang tidak ditemukan',
+              'alert-type' => 'error'
+          );
+  
+          return redirect()->back()->with($notification);
+      }
+  }
+
+  public function RejectKembali($id)
+  {
+      $kembaliBarang = PengembalianBarang::find($id);
+  
+      if ($kembaliBarang) {
+          $kembaliBarang->status = 'reject';
+          $kembaliBarang->save();
+  
+          $notification = array(
+              'message' => 'Pengembalian Barang Berhasil di Reject',
+              'alert-type' => 'error'
+          );
+  
+          return redirect()->back()->with($notification);
+      } else {
+          $notification = array(
+              'message' => 'Pengembalian Barang tidak ditemukan',
+              'alert-type' => 'error'
+          );
+  
+          return redirect()->back()->with($notification);
+      }
   }
 
 
