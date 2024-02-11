@@ -20,71 +20,58 @@
           <div>
              <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Id Barang:</label>
-              <p class="text-muted"></p>
+              <p class="text-muted">{{ $masuk->id_barang }}</p>
             </div>
             <div class=" mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Serial Number:</label>
-              <p class="text-muted"></p>
+              <p class="text-muted">{{ $masuk->serial_number }}</p>
             </div>
             <div class=" mt-3">
-              <label class="tx-13 fw-bolder mb-0 text-uppercase">Nama Barang:</label>
-              <p class="text-muted"></p>  
+              <label class="tx-13 fw-bolder mb-0 text-uppercase">Deskripsi:</label>
+              <p class="text-muted">{{ $masuk->deskripsi }}</p>  
             </div>
           </div>
           <div>
             <div class="mt-3">
             <label class="tx-13 fw-bolder mb-0 text-uppercase">Tanggal Masuk:</label>
-            <p class="text-muted"></p>
-            </div>
-            <div class="mt-3">
-              <label class="tx-13 fw-bolder mb-0 text-uppercase">Tanggal Keluar:</label>
-              <p class="text-muted"></p>
+            <p class="text-muted">{{ $masuk->tanggal_masuk }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Lokasi Barang:</label>
-              <p class="text-muted"></p>
+              <p class="text-muted">{{ $masuk->lokasi_barang }}</p>
             </div>
           </div>  
           <div>
             <div class="mt-3">
             <label class="tx-13 fw-bolder mb-0 text-uppercase">Nama Barang:</label>
-            <p class="text-muted"></p>
+            <p class="text-muted">{{ $masuk->nama_barang }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Jenis Barang:</label>
-              <p class="text-muted"></p>
+              <p class="text-muted">{{ $masuk->jenis_barang }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Quantity</label>
-              <p class="text-muted"></p>
+              <p class="text-muted">{{ $masuk->jumlah_barang }}</p>
             </div>
           </div>
           <div>
             <div class="mt-3">
             <label class="tx-13 fw-bolder mb-0 text-uppercase">Resi Pengiriman</label>
-            <p class="text-muted"></p>
+            <p class="text-muted">{{ $masuk->resi_pengiriman }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Pengirim</label>
-              <p class="text-muted"></p>
+              <p class="text-muted">{{ $masuk->pengirim }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Owner</label>
-              <p class="text-muted"></p>
+              <p class="text-muted">{{ $masuk->owner }}</p>
             </div>
           </div>    
           <div>
-            <div class="mt-3">
-            <label class="tx-13 fw-bolder mb-0 text-uppercase">Status:</label>
-            <p class="text-muted"></p>
-          </div>
-            <div class="mt-3">
-              <label class="tx-13 fw-bolder mb-0 text-uppercase">Deskripsi:</label>
-              <p class="text-muted"></p>
-            </div>
           </div> 
         </div> 
-     
       </div>
     </div>
   </div>

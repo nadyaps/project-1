@@ -46,7 +46,7 @@
               <div class="row mb-3">
                 <label for="resi_pengiriman" class="col-sm-3 col-form-label">Resi Pengiriman</label>
                 <div class="col-sm-9">
-                  <input type="text" name="resi_pengiriman" class="form-control @error('resi_pengiriman') is-invalid @enderror" placeholder="Masukkan resi pengiriman" value="{{ old('resi_pengiriman') }}">
+                  <input type="text" name="resi_pengiriman" class="form-control @error('resi_pengiriman') is-invalid @enderror" placeholder="Masukkan resi pengiriman">
                   @error('resi_pengiriman')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -55,7 +55,7 @@
               <div class="row mb-3">
                 <label for="owner" class="col-sm-3 col-form-label">Owner</label>
                 <div class="col-sm-9">
-                  <input type="text" name="owner" class="form-control @error('owner') is-invalid @enderror" placeholder="Masukkan owner" value="{{ old('owner') }}">
+                  <input type="text" name="owner" class="form-control @error('owner') is-invalid @enderror" placeholder="Masukkan owner">
                   @error('owner')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -64,7 +64,7 @@
               <div class="row mb-3">
                 <label for="pengirim" class="col-sm-3 col-form-label">Pengirim</label>
                 <div class="col-sm-9">
-                  <input type="text" name="pengirim" class="form-control @error('pengirim') is-invalid @enderror" placeholder="Masukkan pengirim" value="{{ old('pengirim') }}">
+                  <input type="text" name="pengirim" class="form-control @error('pengirim') is-invalid @enderror" placeholder="Masukkan pengirim" >
                   @error('pengirim')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -73,7 +73,7 @@
               <div class="row mb-3">
                 <label for="jumlah_barang" class="col-sm-3 col-form-label">Quantity</label>
                 <div class="col-sm-9">
-                  <input type="number" name="jumlah_barang" class="form-control @error('jumlah_barang') is-invalid @enderror" placeholder="Masukkan jumlah barang" value="{{ old('jumlah_barang') }}">
+                  <input type="number" name="jumlah_barang" class="form-control @error('jumlah_barang') is-invalid @enderror" placeholder="Masukkan jumlah barang" >
                   @error('jumlah_barang')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -82,7 +82,7 @@
               <div class="row mb-3">
                 <label for="tanggal_masuk" class="col-sm-3 col-form-label">Tanggal Masuk</label>
                 <div class="col-sm-9">
-                  <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk') is-invalid @enderror" value="{{ old('tanggal_masuk') }}">
+                  <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk') is-invalid @enderror">
                   @error('tanggal_masuk')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror

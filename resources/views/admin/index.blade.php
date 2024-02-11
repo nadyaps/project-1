@@ -59,7 +59,7 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-4">{{$jumlahkeluar}}<span><i class="" data-feather="archive"></i></span></h3>
+                <h3 class="mb-4">{{$jumlahpinjam}}<span><i class="" data-feather="archive"></i></span></h3>
               </div>
               <div class="col-6 col-md-12 col-xl-7">
                 <div id="ordersChart" class="mt-md-3 mt-xl-0"></div>
@@ -121,21 +121,21 @@
                 <td>{{$item->jumlah_barang}}</td>
                 <td>   
                   <a href="" type="text" class="text-white bg-success p-2">
-                    <label for="">Masuk Barang</label>
+                    <label for="">Masuk</label>
                   </a>
                 </td>
               </tr>
               @endforeach
               @foreach ($keluarbarang as $item1)
               <tr>
-                <td>{{$item1->id_barang}}</td>
-                <td>{{$item1->serial_number}}</td>
-                <td>{{$item1->nama_barang}}</td>
-                <td>{{$item1->jenis_barang}}</td>
-                <td>{{$item1->jumlah_barang}}</td>
+                <td>{{$item1->barang->id_barang}}</td>
+                <td>{{$item1->barang->serial_number}}</td>
+                <td>{{$item1->barang->nama_barang}}</td>
+                <td>{{$item1->barang->jenis_barang}}</td>
+                <td>{{$item1->jumlah_pinjam}}</td>
                 <td>
                 <span  type="text" class="text-white bg-danger p-2">
-                    <label for="">Keluar Barang</label>
+                    <label for="">Keluar</label>
                   </span>
                 </td>
               </tr>

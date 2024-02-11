@@ -25,26 +25,29 @@
             </thead>
             <tbody>         
               <tr>
-                <td>1</td>
-                <td>1243</td>
-                <td>Tv</td>
-                <td>3</td>
+              @foreach($masukbarang as $item)
+                <td>{{$item->id_barang}}</td>
+                <td>{{$item->serial_number}}</td>
+                <td>{{$item->nama_barang}}</td>
+                <td>{{$item->jumlah_barang}}</td>
                 <td>
                   <span type="text" class="text-white bg-success p-2">
                     <label for="">Ada</label>
                   </span>
                 </td>
                 <td>
-                  <a href="{{route('view.list_barang')}}" type="button" class="btn btn-primary btn-icon">
+                  <a href="{{route('view.list_barang', ['id' => $item->id])}}" type="button" class="btn btn-primary btn-icon">
                     <i data-feather="eye"></i>
                   </a>
                 </td>
               </tr>
+              @endforeach
+              @foreach($keluarbarang as $item)
               <tr>
-                <td>2</td>
-                <td>124355</td>
-                <td>Lemari</td>
-                <td>4</td>
+                <td>{{$item->barang->id_barang}}</td>
+                <td>{{$item->barang->serial_number}}</td>
+                <td>{{$item->barang->nama_barang}}</td>
+                <td>{{$item->jumlah_pinjam}}</td>
                 <td>
                   <span type="text" class="text-white bg-warning p-2">
                     <label for="">Dipinjam</label>
@@ -56,21 +59,7 @@
                   </button>
                 </td>
               </tr>
-              <tr>
-                <td>3</td>
-                <td>124355</td>
-                <td>Buku</td>
-                <td>9</td>
-                <td>
-                  <span type="text" class="text-white bg-danger p-2">
-                    <label for="">Diambil</label>
-                  </span>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-primary btn-icon">
-                    <i data-feather="eye"></i>
-                  </button>
-                </td>
+              @endforeach
             </tbody>
           </table>
         </div>

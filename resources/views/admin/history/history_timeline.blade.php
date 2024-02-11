@@ -18,6 +18,9 @@
           </div>
           <div id="content">
             <ul class="timeline">
+              <li class="event" data-date="2021-6-20">
+                <h3 class="title">Barang diambil</h3>
+              </li>
               <li class="event" data-date="2021-6-18">
                 <h3 class="title">Barang dikembalikan</h3>
               </li>
