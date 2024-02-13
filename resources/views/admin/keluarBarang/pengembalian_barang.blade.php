@@ -50,7 +50,7 @@
                 @endif
                 </td>
                 <td>
-                  <a href="{{route ('view.pengambilan', ['id' => $item->id])}}" type="button" class="btn btn-primary btn-icon">
+                  <a href="{{route ('view.pengembalian', ['id' => $item->id])}}" type="button" class="btn btn-primary btn-icon">
                     <i data-feather="eye"></i>
                   </a>
                 </td>

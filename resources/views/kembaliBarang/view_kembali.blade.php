@@ -19,11 +19,11 @@
           <div>
              <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Id Barang:</label>
-              <p class="text-muted">{{ $kembali->barang->id_barang }}</p>
+              <p class="text-muted">{{ $kembali->barang->barang->id_barang }}</p>
             </div>
             <div class=" mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Serial Number:</label>
-              <p class="text-muted">{{ $kembali->barang->serial_number }}</p>
+              <p class="text-muted">{{ $kembali->barang->barang->serial_number }}</p>
             </div>
             <div class=" mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Tanggal Pengembalian:</label>
@@ -33,7 +33,7 @@
           <div>
             <div class="mt-3">
             <label class="tx-13 fw-bolder mb-0 text-uppercase">Nama Barang:</label>
-            <p class="text-muted">{{ $kembali->barang->nama_barang }}</p>
+            <p class="text-muted">{{ $kembali->barang->barang->nama_barang }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Quantity:</label>

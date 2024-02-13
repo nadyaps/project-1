@@ -3,15 +3,6 @@
 
 
 <div class="page-content">
-
-            @php
-                $pinjam = App\Models\PeminjamanBarang::sum('jumlah_pinjam');
-                $ambil = App\Models\PengambilanBarang::sum('jumlah_ambil');
-                $kembali =  App\Models\PengembalianBarang::sum('jumlah_kembali');
-                $masuk = App\Models\MasukBarang::sum('jumlah_masuk');
-                $tambah = App\Models\TambahBarang::sum('jumlah_tambah');
-
-            @endphp
 <div class="row">
   <div class="">
     <div class="card ">
@@ -33,7 +24,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($masukbarang as $item2)
+              @foreach($barang as $item2)
               <tr>
                 <td>{{$item2->id_barang}}</td>
                 <td>{{$item2->serial_number}}</td>
@@ -52,12 +43,13 @@
               </tr>
               @endforeach
               @foreach ($pinjambarang as $item1)
+              @if($item1->jumlah_pinjam != 0)
               <tr>
                 <td>{{$item1->barang->id_barang}}</td>
                 <td>{{$item1->barang->serial_number}}</td>
                 <td>{{$item1->barang->nama_barang}}</td>
                 <td>{{$item1->barang->jenis_barang}}</td>
-                <td>{{ $pinjam - $kembali}}</td>
+                <td>{{ $item1->jumlah_pinjam}}</td>
                 <td>
                 <span  type="text" class="text-white bg-warning p-2">
                     <label for="">Pinjam</label>
@@ -69,6 +61,7 @@
                 </a>
                 </td>  
               </tr>
+              @endif
               @endforeach
               @foreach ($ambilbarang as $item4)
               <tr>
@@ -76,7 +69,7 @@
                 <td>{{$item4->barang->serial_number}}</td>
                 <td>{{$item4->barang->nama_barang}}</td>
                 <td>{{$item4->barang->jenis_barang}}</td>
-                <td>{{$ambil}}</td>
+                <td>{{ $item4->jumlah_ambil}}</td>
                 <td>
                 <span  type="text" class="text-white bg-danger p-2">
                     <label for="">Ambil</label>
