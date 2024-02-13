@@ -11,6 +11,7 @@ use App\Http\Controllers\backend\HistoryBarangController;
 use App\Http\Controllers\backend\PeminjamanBarangController;
 use App\Http\Controllers\backend\PengambilanBarangController;
 use App\Http\Controllers\backend\PengembalianBarangController;
+use App\Http\Controllers\backend\TambahBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +136,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
   Route::post('/admin/update/password' , [AdminController::class, 'AdminUpdatePassword'])
   ->name('admin.update.password');
+
+  Route::get('/admin/listbarang' , [AdminController::class, 'ListBarang'])
+  ->name('list.barang');
+  Route::get('/admin/viewlistbarang/ada/{id}' , [AdminController::class, 'ViewListBarangAda'])
+  ->name('view.list_barang_ada');
+  Route::get('/admin/viewlistbarang/pinjam/{id}' , [AdminController::class, 'ViewListBarangPinjam'])
+  ->name('view.list_barang_pinjam');
+  Route::get('/admin/viewlistbarang/ambil/{id}' , [AdminController::class, 'ViewListBarangAmbil'])
+  ->name('view.list_barang_ambil');
   
 
 }); //End group Admin Middleware
@@ -157,10 +167,18 @@ Route::controller(MasukBarangController::class)->group(function(){
     Route::post('/admin/updateregister/' , 'UpdateRegister')->name('update.register');
     Route::get('/admin/deleteregister/{id}' , 'DeleteRegister')->name('delete.register');
 
-    Route::get('/admin/tambahbarang' , 'TambahBarang')->name('tambah.barang');
-    Route::get('/admin/addtambah' , 'AddTambah')->name('add.tambah');
-    Route::get('/admin/search/tambah' , 'SearchTambah')->name('barang.search.tambah');
-    Route::post('/admin/tambah/quantity' , 'TambahQuantity')->name('barang.tambah.quantity');
+  
+});// End Masuk Barang Group Route 
+
+Route::controller(TambahBarangController::class)->group(function(){
+
+  Route::get('/admin/tambahbarang' , 'TambahBarang')->name('tambah.barang');
+  Route::get('/admin/addtambah' , 'AddTambah')->name('add.tambah');
+  Route::post('/admin/storetambah' , 'StoreTambahBarang')->name('store.tambah');
+  Route::get('/admin/viewtambah/{id}' , 'ViewTambahBarang')->name('view.tambah');
+  Route::get('/admin/edittambah/{id}' , 'EditTambahBarang')->name('edit.tambah');
+  Route::post('/admin/updatetambah/' , 'UpdateTambahBarang')->name('update.tambah');
+  Route::get('/admin/deletetambah/{id}' , 'DeleteTambahBarang')->name('delete.tambah');
 });
 
 Route::controller(KeluarBarangController::class)->group(function(){
@@ -182,12 +200,7 @@ Route::controller(KeluarBarangController::class)->group(function(){
 });
 // End Keluar Barang Group Route
 
-
-Route::controller(ListBarangController::class)->group(function(){
-  
-    Route::get('/admin/listbarang' , 'ListBarang')->name('list.barang');
-    Route::get('/admin/viewlistbarang/{id}' , 'ViewListBarang')->name('view.list_barang');
-});    
+ 
 
 Route::controller(HistoryBarangController::class)->group(function(){
   
