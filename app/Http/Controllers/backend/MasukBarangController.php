@@ -5,12 +5,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MasukBarang;
+use App\Models\Barang;
+use App\Models\TambahBarang;
 
 class MasukBarangController extends Controller
 {
     public function RegisterBarang()
     {
-      $table = MasukBarang::oldest()->get();
+
+      $table = MasukBarang::with('barang')->get();
       return view('admin.masukBarang.register_barang', compact('table'));
     } //End Method
 
@@ -25,22 +28,30 @@ class MasukBarangController extends Controller
         'id_barang' => 'required',
         'serial_number' => 'required',
         'nama_barang' => 'required',
-        'jumlah_barang' => 'required',
+        'jumlah_masuk' => 'required',
         'tanggal_masuk' => 'required',
       ]);
+      
+      $barang = Barang::where('id', $request->id_barang)->first();
+
+      
+        $barang = new Barang;
+        $barang->id_barang = $request->id_barang;
+        $barang->serial_number = $request->serial_number;
+        $barang->nama_barang = $request->nama_barang;
+        $barang->jenis_barang = $request->jenis_barang;
+        $barang->lokasi_barang = $request->lokasi_barang;
+        $barang->jumlah_barang = $request->jumlah_masuk;
+        $barang->save();
 
       $data = new MasukBarang;
-      $data->id_barang = $request->id_barang;
-      $data->serial_number = $request->serial_number;
-      $data->nama_barang = $request->nama_barang;
       $data->tanggal_masuk = $request->tanggal_masuk;
-      $data->jumlah_barang = $request->jumlah_barang;
-      $data->jenis_barang = $request->jenis_barang;
-      $data->lokasi_barang = $request->lokasi_barang;
+      $data->jumlah_masuk = $request->jumlah_masuk;
       $data->deskripsi = $request->deskripsi;
       $data->resi_pengiriman = $request->resi_pengiriman;
       $data->pengirim = $request->pengirim;
       $data->owner = $request->owner;
+      $data->barang_id = $barang->id;
       
       if($request->hasFile('photo_barang')){
         $file = $request->file('photo_barang');
@@ -78,14 +89,18 @@ class MasukBarangController extends Controller
     {
       $pid = $request->id;
 
-      $data = MasukBarang::find($pid);
-      $data->id_barang = $request->id_barang;
-      $data->serial_number = $request->serial_number;
-      $data->nama_barang = $request->nama_barang;
+      $data = MasukBarang::with('barang')->where('id', $pid)->first();
+      $barang = $data->barang;
+
+      $barang->id_barang = $request->id_barang;
+      $barang->serial_number = $request->serial_number;
+      $barang->nama_barang = $request->nama_barang;
+      $barang->lokasi_barang = $request->lokasi_barang;
+      $barang->jenis_barang = $request->jenis_barang;
+      $barang->jumlah_barang = $request->jumlah_masuk;
+
       $data->tanggal_masuk = $request->tanggal_masuk;
-      $data->jumlah_barang = $request->jumlah_barang;
-      $data->jenis_barang = $request->jenis_barang;
-      $data->lokasi_barang = $request->lokasi_barang;
+      $data->jumlah_masuk = $request->jumlah_masuk;
       $data->deskripsi = $request->deskripsi;
       $data->resi_pengiriman = $request->resi_pengiriman;
       $data->pengirim = $request->pengirim;
@@ -102,7 +117,9 @@ class MasukBarangController extends Controller
         $data->photo_barang = $filename;
       }
 
+      $barang->save();
       $data->save();
+
       $notification = array(
         'message' => 'Barang berhasil diubah',
         'alert-type' => 'success'
@@ -112,59 +129,30 @@ class MasukBarangController extends Controller
 
     public function DeleteRegister($id)
     {
-      $data = MasukBarang::find($id);
-      if($data->photo_barang){
-        @unlink(public_path('barang_image/'.$data->photo_barang));
-      }
-      $data->delete();
-      $notification = array(
-        'message' => 'Barang berhasil dihapus',
-        'alert-type' => 'success'
-      );
-      return redirect()->route('register.barang')->with($notification);
-    } //End Method
-  
-    public function TambahBarang()
-    {
-      $table = MasukBarang::latest()->get();
-      return view('admin.masukBarang.tambah_barang', compact('table'));
-    }//End Method
-
-    public function AddTambah()
-    {
-      return view('admin.masukBarang.add_tambah');
-    }//End Method
-
-    public function SearchTambah(Request $request)
-    {
-        $id_barang = $request->input('id_barang');
-        $serial_number = $request->input('serial_number');
-
-        $barang = MasukBarang::where('id_barang', $id_barang)
-                         ->where('serial_number', $serial_number)
-                         ->first();
-
-        if (!$barang) {
-            session()->flash('error', 'Barang tidak ditemukan.');
-            return redirect()->back();
+        $barang= MasukBarang::find($id);
+        $masuk = Barang::where('id_barang', $id)->first();
+    
+        if ($barang && $barang->photo_barang) {
+            @unlink(public_path('barang_image/' . $barang->photo_barang));
         }
-
-        return view('admin.masukBarang.add_tambah', compact('barang'));
-    }//End Method
-
-    public function TambahQuantity(Request $request)
-    {
-      $pid = $request->id;
-
-        $barang = MasukBarang::findOrFail($pid);
-
-        $barang->jumlah_barang += $request->input('jumlah_barang');
-        $barang->tanggal_masuk = now();
-
-        $barang->save();
-
-        session()->flash('success', 'Berhasil menambahkan jumlah barang.');
-        return redirect()->route('tambah.barang');
-    }//End Method
+    
+        if ($masuk) {
+            $masuk->delete();
+        }
+    
+        if ($barang) {
+            $barang->delete();
+        }
+    
+        $notification = array(
+            'message' => 'Barang berhasil dihapus',
+            'alert-type' => 'success'
+        );
+    
+        return redirect()->route('register.barang')->with($notification);
+    }
+  
+    
 
 }
+

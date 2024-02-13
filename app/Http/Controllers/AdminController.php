@@ -6,27 +6,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\MasukBarang;
+use App\Models\TambahBarang;
 use App\Models\KeluarBarang;
+use App\Models\PengembalianBarang;
 use App\Models\PeminjamanBarang;
+use App\Models\PengambilanBarang;
+use App\Models\ListBarang;
+
 use Illuminate\Support\Facades\Hash;
 
 
 class AdminController extends Controller
 {
+
     public function AdminDashboard()
     {
-      DB::table('masuk_barangs')->count();
-        $jumlahmasuk = MasukBarang::all()->sum('jumlah_barang');
-        // data terbaru
-        $masukbarang = MasukBarang::orderBy('id_barang', 'desc')->limit(5)->get();
-      DB::table('peminjaman_barangs')->count();
-        $jumlahpinjam = PeminjamanBarang::where('status', 'Approved')->count();
-        //data terbaru
-        $keluarbarang = PeminjamanBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(5)->get();
+        // data masukbarang terbaru
+        $masukbarang = MasukBarang::orderBy('created_at', 'desc')->limit(2)->get();
+        $tambahbarang = TambahBarang::with('barang')->orderBy('created_at', 'desc')->limit(2)->get();
 
-      $totalUser = User::count();
+        //data keluarbarang terbaru
+        $pinjambarang = PeminjamanBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->limit(2)->get();
+        $ambilbarang = PengambilanBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->limit(2)->get();
+        $kembalibarang = PengembalianBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->limit(2)->get();
+
+        //totaluser
+        $totalUser = User::count();
       
-        return view('admin.index')->with(compact('jumlahmasuk', 'jumlahpinjam', 'totalUser', 'keluarbarang', 'masukbarang'));
+        return view('admin.index')->with(compact( 'totalUser', 'pinjambarang', 'ambilbarang', 'kembalibarang', 'masukbarang', 'tambahbarang'));
     } //End Method
     
     
@@ -175,6 +182,38 @@ class AdminController extends Controller
       );
       return redirect()->back()->with($notification);
     } //End Method
+
+    public function ListBarang()
+    { 
+      // data masukbarang 
+      $masukbarang = MasukBarang::with('tambah')->orderby('created_at','DESC')->get();
+
+      //data keluarbarang 
+      $pinjambarang = PeminjamanBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->get();
+      $ambilbarang = PengambilanBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->get();
+
+        return view('admin.listBarang.admin_list_barang')->with(compact( 'masukbarang', 'pinjambarang', 'ambilbarang', ));
+    }
+    public function ViewListBarangAda($id)
+    {
+        $masuk = MasukBarang::find($id);
+        return view('admin.listBarang.view_list_masuk', compact('masuk'));
+    }
+    public function ViewListBarangPinjam($id)
+    {
+        $pinjam = PeminjamanBarang::find($id);
+        return view('admin.listBarang.view_list_pinjam', compact('pinjam'));
+    }
+    public function ViewListBarangAmbil($id)
+    {
+        $ambil = PengambilanBarang::find($id);
+        return view('admin.listBarang.view_list_ambil', compact('ambil'));
+    }
+
+
+
+
+
 
 
 }

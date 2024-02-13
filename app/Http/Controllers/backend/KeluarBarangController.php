@@ -9,7 +9,7 @@ use App\Models\KeluarBarang;
 use App\Models\PeminjamanBarang;
 use App\Models\PengambilanBarang;
 use App\Models\PengembalianBarang;
-use App\Models\MasukBarang;
+use App\Models\Barang;
 
 
 class KeluarBarangController extends Controller
@@ -34,7 +34,7 @@ class KeluarBarangController extends Controller
           $peminjamanBarang->status = 'approved';
           $peminjamanBarang->save();
   
-          $masukBarang = MasukBarang::find($peminjamanBarang->barang_id);
+          $masukBarang = Barang::find($peminjamanBarang->barang_id);
   
           if ($masukBarang) {
               $masukBarang->jumlah_barang = $masukBarang->jumlah_barang - $peminjamanBarang->jumlah_pinjam;
@@ -106,28 +106,34 @@ class KeluarBarangController extends Controller
   
       if ($kembaliBarang) {
           $kembaliBarang->status = 'approved';
+          $kembaliBarang->save();
   
-          $masukBarang = MasukBarang::find($kembaliBarang->barang_id);
+          $masukBarang = Barang::find($kembaliBarang->barang_id);
   
           if ($masukBarang) {
-              $masukBarang->jumlah_barang = $masukBarang->jumlah_barang + $kembaliBarang->jumlah_kembali;
-              $masukBarang->save();
-  
               $peminjamanBarang = PeminjamanBarang::where('barang_id', $kembaliBarang->barang_id)->first();
   
-              if ($peminjamanBarang) {
+              if ($peminjamanBarang && $kembaliBarang->jumlah_kembali <= $peminjamanBarang->jumlah_pinjam) {
+                  $masukBarang->jumlah_barang = $masukBarang->jumlah_barang + $kembaliBarang->jumlah_kembali;
+                  $masukBarang->save();
+  
                   $peminjamanBarang->jumlah_pinjam = $peminjamanBarang->jumlah_pinjam - $kembaliBarang->jumlah_kembali;
                   $peminjamanBarang->save();
+  
+                  $notification = array(
+                      'message' => 'Pengembalian Barang Berhasil di Approve',
+                      'alert-type' => 'success'
+                  );
+  
+                  return redirect()->back()->with($notification);
+              } else {
+                  $notification = array(
+                      'message' => 'Jumlah barang yang dikembalikan melebihi jumlah yang dipinjam',
+                      'alert-type' => 'error'
+                  );
+  
+                  return redirect()->back()->with($notification);
               }
-  
-              $kembaliBarang->save();
-  
-              $notification = array(
-                  'message' => 'Pengembalian Barang Berhasil di Approve',
-                  'alert-type' => 'success'
-              );
-  
-              return redirect()->back()->with($notification);
           } else {
               $notification = array(
                   'message' => 'Barang tidak ditemukan',
@@ -191,7 +197,7 @@ class KeluarBarangController extends Controller
         $ambilBarang->status = 'approved';
         $ambilBarang->save();
 
-        $masukBarang = MasukBarang::find($ambilBarang->barang_id);
+        $masukBarang = Barang::find($ambilBarang->barang_id);
 
         if ($masukBarang) {
             $masukBarang->jumlah_barang = $masukBarang->jumlah_barang - $ambilBarang->jumlah_ambil;

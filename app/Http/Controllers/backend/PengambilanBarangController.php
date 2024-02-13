@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\PengambilanBarang;
-use App\Models\MasukBarang;
+use App\Models\Barang;
 use App\Models\User;
 
 class PengambilanBarangController extends Controller
@@ -19,7 +19,7 @@ class PengambilanBarangController extends Controller
 
     public function CreateAmbilBarang()
     {
-      $data = MasukBarang::all();
+      $data = Barang::all();
       $user = User::all();
       return view('ambilBarang.create_ambil', compact('data', 'user'));
     } //End Method
@@ -40,8 +40,8 @@ class PengambilanBarangController extends Controller
       $data->deskripsi = $request->deskripsi;
       $data->status = 'Pending';
       $data->user_id = Auth::user()->id;
-      $data->barang_id = MasukBarang::find($request->id_barang)->id;
-      if ($data->barang->jumlah_barang < $request->jumlah_pinjam) {
+      $data->barang_id = Barang::find($request->id_barang)->id;
+      if ($data->barang->jumlah_barang < $request->jumlah_ambil) {
         $notification = array(
             'message' => 'Stock barang tidak mencukupi',
             'alert-type' => 'error'
@@ -71,4 +71,11 @@ class PengambilanBarangController extends Controller
       $ambil = PengambilanBarang::find($id);
       return view('ambilBarang.view_ambil', compact('ambil'));
     } //End Method
+
+    public function DeleteAmbilBarang($id)
+    {
+      $ambil = PengambilanBarang::find($id);
+      $ambil->delete();
+      return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+    }
 }

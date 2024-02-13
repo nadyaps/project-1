@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
+use App\Models\PengembalianBarang;
+use App\Models\PeminjamanBarang;
+use App\Models\PengambilanBarang;
+
 use Illuminate\Support\Facades\Hash;
 
 class Controller extends BaseController
@@ -14,7 +18,11 @@ class Controller extends BaseController
   
   public function Dashboard()
   {
-      return view('index');
+    $pinjambarang = PeminjamanBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(3)->get();
+    $ambilbarang = PengambilanBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(3)->get();
+    $kembalibarang = PengembalianBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(3)->get();
+
+      return view('index')->with(compact('pinjambarang','ambilbarang','kembalibarang'));
   } //End Method
 
   public function UserLogout(Request $request)

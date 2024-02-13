@@ -5,7 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PeminjamanBarang;
-use App\Models\MasukBarang;
+use App\Models\Barang;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +19,7 @@ class PeminjamanBarangController extends Controller
 
   public function CreatePinjamBarang()
   {
-      $data = MasukBarang::all();
+      $data = Barang::all();
       return view('pinjamBarang.create_pinjam', compact('data'));
   } //End Method
 
@@ -39,7 +39,7 @@ class PeminjamanBarangController extends Controller
       $data->deskripsi = $request->deskripsi;
       $data->status = 'Pending';
       $data->user_id = Auth::user()->id;
-      $data->barang_id = MasukBarang::find($request->id_barang)->id;
+      $data->barang_id = Barang::find($request->id_barang)->id;
       if ($data->barang->jumlah_barang < $request->jumlah_pinjam) {
         $notification = array(
             'message' => 'Stock barang tidak mencukupi',
@@ -85,7 +85,7 @@ class PeminjamanBarangController extends Controller
       $pinjam->status = 'Reject';
       $pinjam->save();
 
-      $barang = MasukBarang::find($pinjam->id_barang);
+      $barang = Barang::find($pinjam->id_barang);
       $barang->jumlah_barang = $barang->jumlah_barang + $pinjam->jumlah_pinjam;
       $barang->save();
 

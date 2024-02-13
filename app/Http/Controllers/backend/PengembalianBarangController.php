@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\PengembalianBarang;
 use App\Models\PeminjamanBarang;
-use App\Models\MasukBarang;
+use App\Models\Barang;
 use App\Models\User;
 
 class PengembalianBarangController extends Controller
