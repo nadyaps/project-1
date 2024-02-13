@@ -100,57 +100,57 @@ class KeluarBarangController extends Controller
     return view('admin.keluarBarang.view_pengembalian', compact('kembali'));
   }
 
-  public function AcceptKembali($id)
-  {
-      $kembaliBarang = PengembalianBarang::find($id);
-  
-      if ($kembaliBarang) {
-          $kembaliBarang->status = 'approved';
-          $kembaliBarang->save();
-  
-          $masukBarang = Barang::find($kembaliBarang->barang_id);
-  
-          if ($masukBarang) {
-              $peminjamanBarang = PeminjamanBarang::where('barang_id', $kembaliBarang->barang_id)->first();
-  
-              if ($peminjamanBarang && $kembaliBarang->jumlah_kembali <= $peminjamanBarang->jumlah_pinjam) {
-                  $masukBarang->jumlah_barang = $masukBarang->jumlah_barang + $kembaliBarang->jumlah_kembali;
-                  $masukBarang->save();
-  
-                  $peminjamanBarang->jumlah_pinjam = $peminjamanBarang->jumlah_pinjam - $kembaliBarang->jumlah_kembali;
-                  $peminjamanBarang->save();
-  
-                  $notification = array(
-                      'message' => 'Pengembalian Barang Berhasil di Approve',
-                      'alert-type' => 'success'
-                  );
-  
-                  return redirect()->back()->with($notification);
-              } else {
-                  $notification = array(
-                      'message' => 'Jumlah barang yang dikembalikan melebihi jumlah yang dipinjam',
-                      'alert-type' => 'error'
-                  );
-  
-                  return redirect()->back()->with($notification);
-              }
-          } else {
-              $notification = array(
-                  'message' => 'Barang tidak ditemukan',
-                  'alert-type' => 'error'
-              );
-  
-              return redirect()->back()->with($notification);
-          }
-      } else {
-          $notification = array(
-              'message' => 'Pengembalian Barang tidak ditemukan',
-              'alert-type' => 'error'
-          );
-  
-          return redirect()->back()->with($notification);
-      }
-  }
+public function AcceptKembali($id)
+{
+    $kembaliBarang = PengembalianBarang::find($id);
+
+    if ($kembaliBarang) {
+        $kembaliBarang->status = 'approved';
+        $kembaliBarang->save();
+
+        $masukBarang = Barang::find($kembaliBarang->barang_id);
+
+        if ($masukBarang) {
+            $peminjamanBarang = PeminjamanBarang::where('barang_id', $kembaliBarang->barang_id)->first();
+
+            if ($peminjamanBarang && $kembaliBarang->jumlah_kembali <= $peminjamanBarang->jumlah_pinjam) {
+                $masukBarang->jumlah_barang = $masukBarang->jumlah_barang + $kembaliBarang->jumlah_kembali;
+                $masukBarang->save();
+
+                $peminjamanBarang->jumlah_pinjam = $peminjamanBarang->jumlah_pinjam - $kembaliBarang->jumlah_kembali;
+                $peminjamanBarang->save();
+
+                $notification = array(
+                    'message' => 'Pengembalian Barang Berhasil di Approve',
+                    'alert-type' => 'success'
+                );
+
+                return redirect()->back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Jumlah barang yang dikembalikan melebihi jumlah yang dipinjam',
+                    'alert-type' => 'error'
+                );
+
+                return redirect()->back()->with($notification);
+            }
+        } else {
+            $notification = array(
+                'message' => 'Barang tidak ditemukan',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($notification);
+        }
+    } else {
+        $notification = array(
+            'message' => 'Pengembalian Barang tidak ditemukan',
+            'alert-type' => 'error'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+}
 
   public function RejectKembali($id)
   {

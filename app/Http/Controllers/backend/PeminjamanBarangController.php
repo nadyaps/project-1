@@ -13,12 +13,14 @@ class PeminjamanBarangController extends Controller
 {
   public function PinjamBarang()
   {
+    $id = Auth::user()->id;
     $pinjam = PeminjamanBarang::all();
     return view('pinjamBarang.pinjam', compact('pinjam'));
   } //End Method
 
   public function CreatePinjamBarang()
   {
+      $id = Auth::user()->id;
       $data = Barang::all();
       return view('pinjamBarang.create_pinjam', compact('data'));
   } //End Method
@@ -32,7 +34,7 @@ class PeminjamanBarangController extends Controller
           'photo_pinjambarang' => 'required',
       ]);
 
-
+      $id = Auth::user()->id;
       $data = new PeminjamanBarang();
       $data->tanggal_pinjam = $request->tanggal_pinjam;
       $data->jumlah_pinjam = $request->jumlah_pinjam;
@@ -67,12 +69,14 @@ class PeminjamanBarangController extends Controller
 
   public function ViewPinjamBarang($id)
   {
+    $id = Auth::user()->id;
       $pinjam = PeminjamanBarang::find($id);
       return view('pinjamBarang.view_pinjam', compact('pinjam'));
   } //End Method
 
   public function DeletePinjamBarang($id)
   {
+    $id = Auth::user()->id;
       $pinjam = PeminjamanBarang::find($id);
       $pinjam->delete();
       return redirect()->back()->with('success', 'Data Berhasil Dihapus');
@@ -81,6 +85,7 @@ class PeminjamanBarangController extends Controller
 
   public function reject($id)
   {
+    $id = Auth::user()->id;
       $pinjam = PeminjamanBarang::find($id);
       $pinjam->status = 'Reject';
       $pinjam->save();

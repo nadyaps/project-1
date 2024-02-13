@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Barang;
 use App\Models\MasukBarang;
 use App\Models\TambahBarang;
 use App\Models\KeluarBarang;
@@ -186,13 +187,13 @@ class AdminController extends Controller
     public function ListBarang()
     { 
       // data masukbarang 
-      $masukbarang = MasukBarang::with('tambah')->orderby('created_at','DESC')->get();
+      $barang = Barang::orderby('created_at','DESC')->get();
 
       //data keluarbarang 
       $pinjambarang = PeminjamanBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->get();
       $ambilbarang = PengambilanBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->get();
 
-        return view('admin.listBarang.admin_list_barang')->with(compact( 'masukbarang', 'pinjambarang', 'ambilbarang', ));
+        return view('admin.admin_list_barang')->with(compact( 'barang', 'pinjambarang', 'ambilbarang', ));
     }
     public function ViewListBarangAda($id)
     {
