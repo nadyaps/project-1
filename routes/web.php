@@ -202,10 +202,10 @@ Route::controller(KeluarBarangController::class)->group(function(){
 
  
 
-Route::controller(HistoryBarangController::class)->group(function(){
-  
+Route::controller(HistoryBarangController::class)->group(function()
+{
+    Route::get('/search/barang', 'Search')->name('searchbarang');
     Route::get('/admin/history' , 'History')->name('history');
-    Route::get('/admin/historytimeline' , 'HistoryTimeline')->name('historytimeline');
 });
 
 
