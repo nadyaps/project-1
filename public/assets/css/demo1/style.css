@@ -8209,12 +8209,14 @@ div.tox .btn-group-vertical > .btn-group:not(:first-child) > .tox-button,
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  background-color: #79AC78;
+  border-radius:10px;
 }
 
 .bg-secondary {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
+  border-radius:10px;
 }
 
 .bg-success {
@@ -8226,6 +8228,7 @@ div.tox .btn-group-vertical > .btn-group:not(:first-child) > .tox-button,
 .bg-info {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-info-rgb), var(--bs-bg-opacity)) !important;
+  border-radius:10px;
 }
 
 .bg-warning {
