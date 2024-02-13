@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Barang;
 
 class PengembalianBarang extends Model
 {
@@ -17,7 +18,7 @@ class PengembalianBarang extends Model
 
     public function masukbarang ()
     {
-      return $this->belongsTo(MasukBarang::class);
+      return $this->belongsTo(Barang::class);
     }
 
     public function user ()
