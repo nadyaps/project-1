@@ -3,71 +3,99 @@
 
 
 <div class="page-content">
+
+            @php
+                $pinjam = App\Models\PeminjamanBarang::sum('jumlah_pinjam');
+                $ambil = App\Models\PengambilanBarang::sum('jumlah_ambil');
+                $kembali =  App\Models\PengembalianBarang::sum('jumlah_kembali');
+                $masuk = App\Models\MasukBarang::sum('jumlah_masuk');
+                $tambah = App\Models\TambahBarang::sum('jumlah_tambah');
+
+            @endphp
 <div class="row">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
+  <div class="">
+    <div class="card ">
       <div class="card-body">
-        <div class="d-flex flex-row align-items-center justify-content-between mb-3">
-          <h4 class="mb-4">List Barang</h4>
+        <div class="d-flex justify-content-between align-items-baseline mb-4">
+          <h6 class="card-title mb-0">List Data Barang</h6>
         </div>
-    
         <div class="table-responsive">
-          <table id="dataTableExample" class="table">
+          <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th>Id Barang</th>
-                <th>Serial Number</th>
-                <th>Nama Barang</th>
-                <th>Quantity</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th class="pt-0">Id Barang</th>
+                <th class="pt-0">Serial Number</th>
+                <th class="pt-0">Nama Barang</th>
+                <th class="pt-0">Jenis Barang</th>
+                <th class="pt-0">Quantity</th>
+                <th class="pt-0">Keterangan</th> 
+                <th  class="pt-0">Actions</th>
               </tr>
             </thead>
-            <tbody>         
+            <tbody>
+              @foreach($masukbarang as $item2)
               <tr>
-              @foreach($masukbarang as $item)
-                <td>{{$item->id_barang}}</td>
-                <td>{{$item->serial_number}}</td>
-                <td>{{$item->nama_barang}}</td>
-                <td>{{$item->jumlah_barang}}</td>
-                <td>
+                <td>{{$item2->id_barang}}</td>
+                <td>{{$item2->serial_number}}</td>
+                <td>{{$item2->nama_barang}}</td>
+                <td>{{$item2->jenis_barang}}</td>
+                <td>{{ $item2->jumlah_barang}}</td>
+                <td>   
                   <span type="text" class="text-white bg-success p-2">
                     <label for="">Ada</label>
                   </span>
                 </td>
                 <td>
-                  <a href="{{route('view.list_barang', ['id' => $item->id])}}" type="button" class="btn btn-primary btn-icon">
-                    <i data-feather="eye"></i>
-                  </a>
-                </td>
+                <a href="{{route ('view.list_barang_ada', ['id' => $item2->id])}}" type="button" class="btn btn-primary btn-icon">
+                  <i data-feather="eye"></i>
+                </a>
               </tr>
               @endforeach
-              @foreach($keluarbarang as $item)
+              @foreach ($pinjambarang as $item1)
               <tr>
-                <td>{{$item->barang->id_barang}}</td>
-                <td>{{$item->barang->serial_number}}</td>
-                <td>{{$item->barang->nama_barang}}</td>
-                <td>{{$item->jumlah_pinjam}}</td>
+                <td>{{$item1->barang->id_barang}}</td>
+                <td>{{$item1->barang->serial_number}}</td>
+                <td>{{$item1->barang->nama_barang}}</td>
+                <td>{{$item1->barang->jenis_barang}}</td>
+                <td>{{ $pinjam - $kembali}}</td>
                 <td>
-                  <span type="text" class="text-white bg-warning p-2">
-                    <label for="">Dipinjam</label>
+                <span  type="text" class="text-white bg-warning p-2">
+                    <label for="">Pinjam</label>
                   </span>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-primary btn-icon">
-                    <i data-feather="eye"></i>
-                  </button>
+                <a href="{{route ('view.list_barang_pinjam', ['id' => $item1->id])}}" type="button" class="btn btn-primary btn-icon">
+                  <i data-feather="eye"></i>
+                </a>
+                </td>  
+              </tr>
+              @endforeach
+              @foreach ($ambilbarang as $item4)
+              <tr>
+                <td>{{$item4->barang->id_barang}}</td>
+                <td>{{$item4->barang->serial_number}}</td>
+                <td>{{$item4->barang->nama_barang}}</td>
+                <td>{{$item4->barang->jenis_barang}}</td>
+                <td>{{$ambil}}</td>
+                <td>
+                <span  type="text" class="text-white bg-danger p-2">
+                    <label for="">Ambil</label>
+                  </span>
                 </td>
+                <td>
+                <a href="{{route ('view.list_barang_ambil', ['id' => $item4->id])}}" type="button" class="btn btn-primary btn-icon">
+                  <i data-feather="eye"></i>
+                </a>
+                </td>  
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-      </div>
+      </div> 
     </div>
   </div>
-
-</div>
+</div> <!-- row -->
 
 </div>
 

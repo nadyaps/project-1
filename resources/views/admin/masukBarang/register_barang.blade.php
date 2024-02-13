@@ -29,11 +29,11 @@
             <tbody>
               @foreach($table as $key => $item)
               <tr>
-                <td>{{ $item->id_barang }}</td>
-                <td>{{ $item->serial_number }}</td>
+                <td>{{ $item->barang->id_barang }}</td>
+                <td>{{ $item->barang->serial_number }}</td>
                 <td>{{ $item->tanggal_masuk }}</td>
-                <td>{{ $item->nama_barang }}</td>
-                <td>{{ $item->jumlah_barang }}</td>
+                <td>{{ $item->barang->nama_barang }}</td>
+                <td>{{ $item->jumlah_masuk }}</td>
                 <td>
                   <a href="{{ route ('view.register',  ['id' => $item->id]) }}" type="button" class="btn btn-primary btn-icon">
                     <i data-feather="eye"></i>

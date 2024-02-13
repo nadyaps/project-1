@@ -69,10 +69,10 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jumlah Barang</label>
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Quantity</label>
             <div class="col-sm-9">
-              <input type="number" name="jumlah_barang" class="form-control @error('jumlah_barang') is-invalid @enderror" placeholder="Masukkan jumlah barang">
-              @error('jumlah_barang')
+              <input type="number" name="jumlah_masuk" class="form-control @error('jumlah_masuk') is-invalid @enderror" placeholder="Masukkan jumlah barang">
+              @error('jumlah_masuk')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
             </div>

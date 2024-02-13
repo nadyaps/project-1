@@ -18,7 +18,7 @@
           <label for="id_barang">Nama Barang</label>
           <select name="id_barang" id="id_barang" class="form-control">
               @foreach ($data as $barang)
-                @if ($barang->jumlah_pinjam != 0)
+                @if ($barang->jumlah_pinjam != 0 && $barang->status == 'approved')
                   <option value="{{ $barang->id }}">{{ $barang->barang->nama_barang }} <span>{{ $barang->jumlah_pinjam }}</span></option>
                 @endif
               @endforeach

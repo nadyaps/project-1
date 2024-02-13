@@ -28,6 +28,7 @@
             <tbody> 
               <tr>
               @foreach( $pinjam as $item )    
+              @if($item->jumlah_pinjam != 0)
                 <td>{{ $item->barang->id_barang }}</td>
                 <td>{{ $item->barang->nama_barang }}</td>
                 <td>{{ $item->tanggal_pinjam }}</td>
@@ -65,6 +66,7 @@
                   </td> 
                 @endif  
               </tr>
+              @endif
               @endforeach
             </tbody>
           </table>

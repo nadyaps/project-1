@@ -20,7 +20,7 @@
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Id Barang</label>
             <div class="col-sm-9">
-              <input type="text" name="id_barang" class="form-control @error('id_barang') is-invalid @enderror" value="{{$item->id_barang}}">
+              <input type="text" name="id_barang" class="form-control @error('id_barang') is-invalid @enderror" value="{{$item->barang->id_barang}}">
               @error('id_barang')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -29,9 +29,45 @@
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Serial Number</label>
             <div class="col-sm-9">
-              <input type="text" name="serial_number" class="form-control @error('serial_number') is-invalid @enderror" value="{{$item->serial_number}}">
+              <input type="text" name="serial_number" class="form-control @error('serial_number') is-invalid @enderror" value="{{$item->barang->serial_number}}">
               @error('serial_number')
                 <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Barang</label>
+            <div class="col-sm-9">
+              <input type="text" name="nama_barang" class=" form-control @error('nama_barang') is-invalid @enderror" value="{{$item->barang->nama_barang}}">
+              @error('nama_barang')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Barang</label>
+            <div class="col-sm-9">
+              <input type="text" name="jenis_barang" class="form-control @error('jenis_barang') is-invalid @enderror" value="{{$item->barang->jenis_barang}}">
+              @error('jenis_barang')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Lokasi Barang</label>
+            <div class="col-sm-9">
+              <input type="text" name="lokasi_barang" class="form-control @error('lokasi_barang') is-invalid @enderror"value="{{$item->barang->lokasi_barang}}">
+              @error('lokasi_barang')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jumlah Barang</label>
+            <div class="col-sm-9">
+              <input type="number" name="jumlah_masuk" class="form-control @error('jumlah_masuk') is-invalid @enderror" value="{{$item->jumlah_masuk}}">
+              @error('jumlah_masuk')
+              <span class="text-danger">{{ $message }}</span>
               @enderror
             </div>
           </div>
@@ -58,42 +94,6 @@
             <div class="col-sm-9">
               <input type="text" name="pengirim" class="form-control @error('pengirim') is-invalid @enderror" value="{{$item->pengirim}}">
               @error('pengirim')
-                <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Barang</label>
-            <div class="col-sm-9">
-              <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror" value="{{$item->nama_barang}}">
-              @error('nama_barang')
-                <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jumlah Barang</label>
-            <div class="col-sm-9">
-              <input type="number" name="jumlah_barang" class="form-control @error('jumlah_barang') is-invalid @enderror" value="{{$item->jumlah_barang}}">
-              @error('jumlah_barang')
-                <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jenis Barang</label>
-            <div class="col-sm-9">
-              <input type="text" name="jenis_barang" class="form-control @error('jenis_barang') is-invalid @enderror" value="{{$item->jenis_barang}}">
-              @error('jenis_barang')
-                <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Lokasi Barang</label>
-            <div class="col-sm-9">
-              <input type="text" name="lokasi_barang" class="form-control @error('lokasi_barang') is-invalid @enderror"value="{{$item->lokasi_barang}}">
-              @error('lokasi_barang')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
             </div>

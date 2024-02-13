@@ -19,15 +19,15 @@
           <div>
              <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Id Barang:</label>
-              <p class="text-muted">{{ $item->id_barang }}</p>
+              <p class="text-muted">{{ $item->barang->id_barang }}</p>
             </div>
             <div class=" mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Serial Number:</label>
-              <p class="text-muted">{{ $item->serial_number }}</p>
+              <p class="text-muted">{{ $item->barang->serial_number }}</p>
             </div>
             <div class=" mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Nama Barang:</label>
-              <p class="text-muted">{{ $item->nama_barang }}</p>  
+              <p class="text-muted">{{ $item->barang->nama_barang }}</p>  
             </div>
           </div>
           <div>
@@ -37,17 +37,17 @@
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Quantity:</label>
-              <p class="text-muted">{{ $item->jumlah_barang }}</p>
+              <p class="text-muted">{{ $item->jumlah_masuk }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Jenis Barang:</label>
-              <p class="text-muted">{{ $item->jenis_barang }}</p>
+              <p class="text-muted">{{ $item->barang->jenis_barang }}</p>
             </div>
           </div>  
           <div>
             <div class="mt-3">
             <label class="tx-13 fw-bolder mb-0 text-uppercase">Lokasi Barang:</label>
-            <p class="text-muted">{{ $item->lokasi_barang }}</p>
+            <p class="text-muted">{{ $item->barang->lokasi_barang }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Resi Pengiriman:</label>
