@@ -85,6 +85,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('edit/pinjam/barang/{id}', 'EditPinjamBarang')->name('edit.pinjam.barang');
     Route::get('delete/pinjam/barang/{id}' , 'DeletePinjamBarang')->name('delete.pinjam.barang');
     Route::post('update/pinjam/barang' , 'UpdatePinjamBarang')->name('update.pinjam.barang');
+    Route::get('filter/pinjam/barang', 'filterPeminjaman')->name('filter.pinjam.barang');
 
   });
 
@@ -150,12 +151,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
   Route::get('/admin/listbarang' , [AdminController::class, 'ListBarang'])
   ->name('list.barang');
-  Route::get('/admin/viewlistbarang/ada/{id}' , [AdminController::class, 'ViewListBarangAda'])
-  ->name('view.list_barang_ada');
-  Route::get('/admin/viewlistbarang/pinjam/{id}' , [AdminController::class, 'ViewListBarangPinjam'])
-  ->name('view.list_barang_pinjam');
-  Route::get('/admin/viewlistbarang/ambil/{id}' , [AdminController::class, 'ViewListBarangAmbil'])
-  ->name('view.list_barang_ambil');
+  Route::get('/admin/viewlistbarang/{id}' , [AdminController::class, 'ViewListBarang'])
+  ->name('view.list_barang');
   Route::get('/admin/filterlistbarang' , [AdminController::class, 'FilterListBarang'])
   ->name('filter.list_barang');
   

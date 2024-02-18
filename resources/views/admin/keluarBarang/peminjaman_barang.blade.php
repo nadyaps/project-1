@@ -10,6 +10,19 @@
         <div class="d-flex flex-row align-items-center justify-content-between mb-3">
           <h4 class="mb-4">Peminjaman Barang</h4>
         </div>
+        <form method="GET" action="{{route('filter.pinjam.barang')}}" class="forms-sample">
+          <div class="col-md-4 mb-5">
+            <div class="form-group">
+              <label for="keterangan">Keterangan</label>
+              <select name="keterangan" id="keterangan" class="form-control">
+                <option value="">Semua</option>
+                @foreach ($pinjam as $barang)
+                  <option value="{{ $barang->id }}">{{ $barang->status }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+        </form>    
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
@@ -64,10 +77,7 @@
       </div>
     </div>
   </div>
-
 </div>
-
 </div>
-
 
 @endsection

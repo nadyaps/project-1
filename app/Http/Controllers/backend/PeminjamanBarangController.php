@@ -18,6 +18,19 @@ class PeminjamanBarangController extends Controller
     return view('pinjamBarang.pinjam', compact('pinjam'));
   } //End Method
 
+  public function filterPeminjaman(Request $request)
+{
+    $keterangan = $request->input('keterangan');
+
+    if ($keterangan) {
+        $pinjam = Pinjam::where('status', $keterangan)->get();
+    } else {
+        $pinjam = Pinjam::all();
+    }
+
+    return view('pinjamBarang.pinjam', compact('pinjam'));
+}
+
   public function CreatePinjamBarang()
   {
       $data = Barang::all();

@@ -55,7 +55,7 @@
                   </span>
                 </td>
                 <td>
-                <a href="{{route ('view.list_barang_ada', ['id' => $item2->id])}}" type="button" class="btn btn-primary btn-icon">
+                <a href="{{route ('view.list_barang', ['id' => $item2->id])}}" type="button" class="btn btn-primary btn-icon">
                   <i data-feather="eye"></i>
                 </a>
               </tr>
@@ -74,7 +74,7 @@
                   </span>
                 </td>
                 <td>
-                <a href="{{route ('view.list_barang_pinjam', ['id' => $item1->id])}}" type="button" class="btn btn-primary btn-icon">
+                <a href="{{route ('view.peminjaman', ['id' => $item1->id])}}" type="button" class="btn btn-primary btn-icon">
                   <i data-feather="eye"></i>
                 </a>
                 </td>  
@@ -94,7 +94,7 @@
                   </span>
                 </td>
                 <td>
-                <a href="{{route ('view.list_barang_ambil', ['id' => $item4->id])}}" type="button" class="btn btn-primary btn-icon">
+                <a href="{{route ('view.pengambilan', ['id' => $item4->id])}}" type="button" class="btn btn-primary btn-icon">
                   <i data-feather="eye"></i>
                 </a>
                 </td>  
