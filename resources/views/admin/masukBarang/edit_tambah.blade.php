@@ -12,15 +12,14 @@
         <div class="d-flex flex-row align-items-center justify-content-between mb-3">
           <h4>Edit Barang</h4>
         </div>
-        <form method="POST" action="{{ route('update.tambah') }}" class="forms-sample" enctype="multipart/form-data" class="forms-sample">
+        <form method="POST" action="" class="forms-sample" enctype="multipart/form-data" class="forms-sample">
         @csrf
-        
-        <input type="hidden" name="id" value="{{ $tambah->barang->id_barang }}">
+        <input type="hidden" name="id" value="{{ $tambahbarang->barang->id_barang }}">
 
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Resi Pengiriman</label>
             <div class="col-sm-9">
-              <input type="text" name="resi_pengiriman" class="form-control @error('resi_pengiriman') is-invalid @enderror" value="{{$tambah->resi_pengiriman}}">
+              <input type="text" name="resi_pengiriman" class="form-control @error('resi_pengiriman') is-invalid @enderror" value="{{$tambahbarang->resi_pengiriman}}">
               @error('resi_pengiriman')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -29,7 +28,7 @@
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Owner</label>
             <div class="col-sm-9">
-              <input type="text" name="owner" class="form-control @error('owner') is-invalid @enderror" value="{{$tambah->owner}}">
+              <input type="text" name="owner" class="form-control @error('owner') is-invalid @enderror" value="{{$tambahbarang->owner}}">
               @error('owner')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -38,7 +37,7 @@
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Pengirim</label>
             <div class="col-sm-9">
-              <input type="text" name="pengirim" class="form-control @error('pengirim') is-invalid @enderror" value="{{$tambah->pengirim}}">
+              <input type="text" name="pengirim" class="form-control @error('pengirim') is-invalid @enderror" value="{{$tambahbarang->pengirim}}">
               @error('pengirim')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -47,7 +46,7 @@
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Jumlah Barang</label>
             <div class="col-sm-9">
-              <input type="number" name="jumlah_tambah" class="form-control @error('jumlah_tambah') is-invalid @enderror" value="{{$tambah->jumlah_tambah}}">
+              <input type="number" name="jumlah_tambah" class="form-control @error('jumlah_tambah') is-invalid @enderror" value="{{$tambahbarang->jumlah_tambah}}">
               @error('jumlah_tambah')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -56,7 +55,7 @@
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Tanggal Masuk</label>
             <div class="col-sm-9">
-              <input type="date" name="tanggal_tambah" class="form-control @error('tanggal_tambah') is-invalid @enderror" value="{{$tambah->tanggal_tambah}}">
+              <input type="date" name="tanggal_tambah" class="form-control @error('tanggal_tambah') is-invalid @enderror" value="{{$tambahbarang->tanggal_tambah}}">
               @error('tanggal_tambah')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -65,7 +64,7 @@
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Deskripsi</label>
             <div class="col-sm-9">
-              <input type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" value="{{$tambah->deskripsi}}" rows="5"></input>
+              <input type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" value="{{$tambahbarang->deskripsi}}" rows="5"></input>
               @error('deskripsi')
                 <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -82,7 +81,7 @@
           </div>
           <div class="row mt-3 mb-3">
             <label for="exampleInputMobile" class="col-sm-3 col-form-label"></label>
-            <img  id="showImage" class="wd-150" src="{{ (!empty ($tambah->photo_tambahbarang)) ? url('tambah_image/' .$tambah->photo_tambahbarang) :url('no_image.jpg')}}" alt="barang">
+            <img  id="showImage" class="wd-150" src="{{ (!empty ($tambahbarang->photo_tambahbarang)) ? url('tambah_image/' .$tambahbarang->photo_tambahbarang) :url('no_image.jpg')}}" alt="barang">
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary me-2">Simpan</button>
