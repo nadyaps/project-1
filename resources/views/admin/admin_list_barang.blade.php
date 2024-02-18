@@ -1,7 +1,6 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 
-
 <div class="page-content">
 <div class="row">
   <div class="">
@@ -10,6 +9,25 @@
         <div class="d-flex justify-content-between align-items-baseline mb-4">
           <h6 class="card-title mb-0">List Data Barang</h6>
         </div>
+        <form class="row justify-content-between" action="{{route('filter.list_barang')}}" method="get">
+          <div class="col-md-4 mb-5">
+            <div class="form-group">
+              <label for="keterangan">Keterangan</label>
+              <select name="keterangan" id="keterangan" class="form-control">
+                <option value="">Semua</option>
+                <option value="ada">Ada</option>
+                <option value="dipinjam">Dipinjam</option>
+                <option value="diambil">Diambil</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="search">Search</label>
+              <input type="text" name="search" id="search" class="form-control" placeholder="Search...">
+            </div>
+          </div>
+        </form>
         <div class="table-responsive">
           <table class="table table-hover mb-0">
             <thead>

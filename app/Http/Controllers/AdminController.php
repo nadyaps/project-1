@@ -202,10 +202,28 @@ class AdminController extends Controller
         return view('admin.admin_list_barang')->with(compact( 'barang', 'pinjambarang', 'ambilbarang', ));
     }
 
+    public function FilterListBarang(Request $request)
+  {
+    $barang = Barang::all();
+    $pinjambarang = PeminjamanBarang::all();
+    $ambilbarang = PengambilanBarang::all();
 
+    $keterangan = $request->keterangan;
+    $search = $request->search;
 
+    $barang = $barang->when($keterangan, function ($query) use ($keterangan) {
+        if ($keterangan == 'ada') {
+            return $query->where('jumlah_pinjam', 0)->where('jumlah_ambil', 0);
+        } elseif ($keterangan == 'dipinjam') {
+            return $query->where('jumlah_pinjam', '>', 0);
+        } elseif ($keterangan == 'diambil') {
+            return $query->where('jumlah_ambil', '>', 0);
+        }
+    })->when($search, function ($query) use ($search) {
+        return $query->where('nama_barang', 'like', '%' . $search . '%');
+    });
 
-
-
-
-}
+    return view('admin.admin_list_barang', compact('barang', 'pinjambarang', 'ambilbarang'));
+  } //End Method
+} 
+  

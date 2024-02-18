@@ -156,6 +156,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
   ->name('view.list_barang_pinjam');
   Route::get('/admin/viewlistbarang/ambil/{id}' , [AdminController::class, 'ViewListBarangAmbil'])
   ->name('view.list_barang_ambil');
+  Route::get('/admin/filterlistbarang' , [AdminController::class, 'FilterListBarang'])
+  ->name('filter.list_barang');
   
 
 }); //End group Admin Middleware
