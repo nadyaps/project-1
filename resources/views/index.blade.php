@@ -26,8 +26,25 @@
     <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
   </div>
 </div>
+            @php
 
-<div class="row">
+              $id = Auth::user()->id;
+
+              $pinjam = App\Models\PeminjamanBarang::where('status', 'approved')
+              ->where('user_id', $id)
+              ->sum('jumlah_pinjam');
+
+              $kembali =  App\Models\PengembalianBarang::where('status', 'approved')
+              ->where('user_id', $id)
+              ->sum('jumlah_kembali');
+
+              $ambil =  App\Models\PengambilanBarang::where('status', 'approved')
+              ->where('user_id', $id)
+              ->sum('jumlah_ambil');
+
+            @endphp
+            
+<div class="row"> 
   <div class="col-12 col-xl-12 stretch-card">
     <div class="row flex-grow-1">
       <div class="col-md-4 grid-margin stretch-card">
@@ -36,10 +53,6 @@
             <div class="d-flex justify-content-between align-items-baseline">
               <h6 class="card-title mb-0">Barang Dipinjam</h6>
             </div>
-            @php
-              $pinjam = App\Models\PeminjamanBarang::where('status', 'approved')->sum('jumlah_pinjam');
-              $kembali =  App\Models\PengembalianBarang::where('status', 'approved')->sum('jumlah_kembali');
-            @endphp
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
                 <h3 class="ml-10">{{$pinjam}}<span><i class="" data-feather="inbox"></i></span></h3> 
@@ -59,9 +72,6 @@
               <div class="dropdown mb-2">
               </div>
             </div>
-            @php
-              $kembali =  App\Models\PengembalianBarang::where('status', 'approved')->sum('jumlah_kembali');
-            @endphp
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
                 <h3 class="mb-4">{{$kembali}}<span><i class="" data-feather="archive"></i></span></h3>
@@ -81,9 +91,6 @@
               <div class="dropdown mb-2">
               </div>
             </div>
-            @php
-              $ambil = App\Models\PengambilanBarang::where('status', 'approved')->sum('jumlah_ambil');
-            @endphp
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
                 <h3 class="mb-2 mr-5">{{$ambil}}<span><i class="" data-feather="package"></i> </span></h3>
@@ -121,7 +128,7 @@
             </thead>
             <tbody>
               @foreach ($pinjambarang as $item1)
-              @if($item1->jumlah_pinjam != 0)
+              @if($item1->jumlah_pinjam != 0 && $item1->user_id == $id)
               <tr>
                 <td>{{$item1->barang->id_barang}}</td>
                 <td>{{$item1->barang->serial_number}}</td>
@@ -137,6 +144,7 @@
               @endif
               @endforeach
               @foreach ($kembalibarang as $item3)
+              @if( $item3->user_id == $id)
               <tr>
                 <td>{{$item3->barang->barang->id_barang}}</td>
                 <td>{{$item3->barang->barang->serial_number}}</td>
@@ -149,8 +157,10 @@
                   </span>
                 </td>
               </tr>
+              @endif
               @endforeach
               @foreach ($ambilbarang as $item4)
+              @if( $item4->user_id == $id)
               <tr>
                 <td>{{$item4->barang->id_barang}}</td>
                 <td>{{$item4->barang->serial_number}}</td>
@@ -163,6 +173,7 @@
                   </span>
                 </td>
               </tr>
+              @endif
               @endforeach
             </tbody>
           </table>

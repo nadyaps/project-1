@@ -30,34 +30,12 @@
         @endforeach
           <div id="content">
             <ul class="timeline">
-            @foreach($ambil as $item)
-              <li class="event" data-date="{{$item->tanggal_ambil}}">
-                <h3 class="title">Barang diambil</h3>
-                <p>Barang diambil oleh: {{$item->user->name}}</p>
-              </li>
+            @foreach($history as $item)
+              <li class="event" data-date="{{$item->tanggal}}">
+                <h3 class="title">{{$item->activity_type}}</h3>
+                <p>{{$item->activity_type}} {{$item->user}} {{$item->jumlah}}</p>
             @endforeach
-            @foreach($kembali as $item)  
-              <li class="event" data-date="{{$item->tanggal_kembali}}">
-                <h3 class="title">Barang dikembalikan</h3>
-                <p>Barang dikembalikan oleh: {{$item->user->name}}</p>
               </li>
-            @endforeach
-            @foreach($pinjam as $item)
-              <li class="event" data-date="{{$item->tanggal_pinjam}}">
-                <h3 class="title">Barang dipinjam</h3>
-                <p>Barang dipinjam oleh: {{$item->user->name}}</p>
-              </li>
-            @endforeach
-            @foreach($tambah as $item)
-              <li class="event" data-date="{{$item->tanggal_tambah}}">
-                <h3 class="title">Barang ditambahkan</h3>
-              </li>
-            @endforeach
-            @foreach($masuk as $item)
-              <li class="event" data-date="{{$item->tanggal_masuk}}">
-                <h3 class="title">Registrasi barang</h3>
-              </li>
-            @endforeach
             </ul>
           </div> 
       </div>

@@ -13,7 +13,9 @@
             <i data-feather="plus" class="btn-icon-prepend"></i> Tambah 
           </a>
         </div>
-    
+        @php 
+        $id = Auth::user()->id;
+        @endphp
         <div class="table-responsive">
           <table id="dataTableExample" class="table">
             <thead>
@@ -27,7 +29,8 @@
               </tr>
             </thead>
             <tbody>     
-            @foreach( $kembali as $item )       
+            @foreach( $kembali as $item )   
+            @if($item->user_id == $id)    
               <tr>
                 <td>{{ $item->barang->barang->id_barang }}</td>
                 <td>{{ $item->barang->barang->nama_barang }}</td>
@@ -41,6 +44,9 @@
                 <td>
                   <a href="{{route('view.kembali.barang', ['id' => $item->id])}}" type="button" class="btn btn-primary btn-icon">
                     <i data-feather="eye"></i>
+                  </a>
+                  <a href="{{route('edit.kembali.barang', ['id' => $item->id])}}" type="button" class="btn btn-secondary btn-icon">
+                    <i data-feather="edit"></i>
                   </a>
                   <a href="{{route ('delete.kembali.barang', ['id' => $item->id]) }}" type="button" class="btn btn-danger btn-icon" id="delete">
                     <i data-feather="trash-2"></i>
@@ -66,6 +72,7 @@
                   </td> 
                 @endif  
               </tr>
+              @endif  
               @endforeach
             </tbody>
           </table>

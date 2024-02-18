@@ -84,12 +84,12 @@
                         <label for="userPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" placeholder="Masukkan password">
                       </div>
-                      <div>
-                        <button type="submit" class="btn btn-primary me-2 mb-3 mb-md-2 text-white">Login</button>
-                        <button type="button" class="btn btn-outline-primary btn-icon-text mb-3 mb-md-2">
-                          <i class="btn-icon-prepend" data-feather="twitter"></i>
+                      <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-block mb-3 mb-md-2 text-white">Login</button>
+                        <a href="http://127.0.0.1:8000/auth/google/redirect" type="button" class="btn btn-outline-primary btn-block btn-icon-text mb-3 mb-md-2">
+                          <i class="btn-icon-prepend" data-feather="globe"></i>
                           Login with google
-                        </button>
+                        </a>
                       </div>
                     </form>
                   </div>
