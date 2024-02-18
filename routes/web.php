@@ -188,7 +188,7 @@ Route::controller(TambahBarangController::class)->group(function(){
   Route::post('/admin/storetambah' , 'StoreTambahBarang')->name('store.tambah');
   Route::get('/admin/viewtambah/{id}' , 'ViewTambahBarang')->name('view.tambah');
   Route::get('/admin/edittambah/{id}' , 'EditTambahBarang')->name('edit.tambah');
-  Route::post('/admin/updatetambah' , 'UpdateTambahBarang')->name('update.tambah');
+  // Route::post('/admin/updatetambah/{id}' , 'UpdateTambahBarang')->name('update.tambah');
   Route::get('/admin/deletetambah/{id}' , 'DeleteTambahBarang')->name('delete.tambah');
 });
 
