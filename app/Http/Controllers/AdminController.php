@@ -49,9 +49,15 @@ class AdminController extends Controller
         return redirect('/admin/login');   
     } //End Method
 
-    public function AdminLogin()
+    public function AdminLogin(Request $request)
     {
-        return view('admin.admin_login');
+      Auth::guard('web')->logout();
+
+      $request->session()->invalidate();
+
+      $request->session()->regenerateToken();
+
+      return redirect('login');  
     } //End Method
 
     public function AdminProfile()
@@ -194,21 +200,6 @@ class AdminController extends Controller
       $ambilbarang = PengambilanBarang::where('status', 'Approved')->orderBy('created_at', 'desc')->get();
 
         return view('admin.admin_list_barang')->with(compact( 'barang', 'pinjambarang', 'ambilbarang', ));
-    }
-    public function ViewListBarangAda($id)
-    {
-        $masuk = MasukBarang::find($id);
-        return view('admin.listBarang.view_list_masuk', compact('masuk'));
-    }
-    public function ViewListBarangPinjam($id)
-    {
-        $pinjam = PeminjamanBarang::find($id);
-        return view('admin.listBarang.view_list_pinjam', compact('pinjam'));
-    }
-    public function ViewListBarangAmbil($id)
-    {
-        $ambil = PengambilanBarang::find($id);
-        return view('admin.listBarang.view_list_ambil', compact('ambil'));
     }
 
 

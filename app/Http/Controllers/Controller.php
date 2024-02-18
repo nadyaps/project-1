@@ -18,6 +18,7 @@ class Controller extends BaseController
   
   public function Dashboard()
   {
+    $id = Auth::user()->id;
     $pinjambarang = PeminjamanBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(3)->get();
     $ambilbarang = PengambilanBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(3)->get();
     $kembalibarang = PengembalianBarang::where('status', 'Approved')->orderBy('id', 'desc')->limit(3)->get();

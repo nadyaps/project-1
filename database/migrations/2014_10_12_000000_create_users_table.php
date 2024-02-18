@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('mitra')->nullable();
             $table->enum('role',['admin','user'])->default('user');
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('provider_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

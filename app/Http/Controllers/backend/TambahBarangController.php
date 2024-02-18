@@ -70,6 +70,7 @@ class TambahBarangController extends Controller
     return redirect()->route('tambah.barang')->with($notification);
   }//End Method
 
+
   public function ViewTambahBarang($id)
   {
     $tambah = TambahBarang::find($id);
@@ -84,47 +85,71 @@ class TambahBarangController extends Controller
 
 
   public function UpdateTambahBarang(Request $request)
-{
-  $data = TambahBarang::find($request->id);
+  {
+      $request->validate([
+          'jumlah_tambah' => 'required',
+          'tanggal_tambah' => 'required',
+          'resi_pengiriman' => 'required',
+          'pengirim' => 'required',
+          'owner' => 'required',
+          'deskripsi' => 'required',
+          'photo_tambahbarang' => 'nullable|image|max:2048',
+      ]);
+  
+      $tambah = TambahBarang::find($request->id_barang);
+  
+      if ($tambah) {
+          $masukBarang = Barang::find($tambah->barang_id);
+          $jumlah_barang =  $masukBarang->jumlah_barang + $request->jumlah_tambah;
+          $masukBarang->jumlah_barang = $jumlah_barang;
+          $masukBarang->save();
+  
+          $tambah->jumlah_tambah = $request->jumlah_tambah;
+          $tambah->tanggal_tambah = $request->tanggal_tambah;
+          $tambah->resi_pengiriman = $request->resi_pengiriman;
+          $tambah->pengirim = $request->pengirim;
+          $tambah->owner = $request->owner;
+          $tambah->deskripsi = $request->deskripsi;
+  
+          if ($request->hasFile('photo_tambahbarang')) {
+              $file = $request->file('photo_tambahbarang');
+  
+              if ($tambah->photo_tambahbarang) {
+                  @unlink(public_path('tambah_image/'.$tambah->photo_tambahbarang));
+              }
+              $filename = date('YmdHis').$file->getClientOriginalName();
+              $file->move(public_path('tambah_image'),$filename);
+              $tambah->photo_tambahbarang = $filename;
+          }
+  
+          $tambah->save();
+          $notification = array(
+              'message' => 'Barang berhasil diubah',
+              'alert-type' => 'success'
+          );
+          return redirect()->route('tambah.barang')->with($notification);
+      } else {
+          $notification = array(
+              'message' => 'Barang tidak ditemukan',
+              'alert-type' => 'error'
+          );
+          return redirect()->route('tambah.barang')->with($notification);
+      }
+  }
 
-  $data->jumlah_tambah = $request->jumlah_tambah;
-  $data->tanggal_tambah = $request->tanggal_tambah;
-  $data->resi_pengiriman = $request->resi_pengiriman;
-  $data->pengirim = $request->pengirim;
-  $data->owner = $request->owner;
-  $data->deskripsi = $request->deskripsi;
 
-  if($request->hasFile('photo_tambahbarang')){
-    $file = $request->file('photo_tambahbarang');
-
-    if($data->photo_tambahbarang){
-      @unlink(public_path('tambah_image/'.$data->photo_tambahbarang));
+  public function DeleteTambahBarang($id)
+  {
+    $tambah = TambahBarang::find($id);
+    if($tambah->photo_tambahbarang){
+      @unlink(public_path('tambah_image/'.$tambah->photo_tambahbarang));
     }
-    $filename = date('YmdHis').$file->getClientOriginalName();
-    $file->move(public_path('tambah_image'),$filename);
-    $data->photo_tambahbarang = $filename;
+    $tambah->delete();
+    $notification = array(
+      'message' => 'Barang berhasil dihapus',
+      'alert-type' => 'success'
+    );
+    return redirect()->route('tambah.barang')->with($notification);
   }
-
-  $data->save();
-  $notification = array(
-    'message' => 'Barang berhasil diubah',
-    'alert-type' => 'success'
-  );
-  return redirect()->route('tambah.barang')->with($notification);
-}
-
-public function DeleteTambahBarang($id)
-{
-  $tambah = TambahBarang::find($id);
-  if($tambah->photo_tambahbarang){
-    @unlink(public_path('tambah_image/'.$tambah->photo_tambahbarang));
-  }
-  $tambah->delete();
-  $notification = array(
-    'message' => 'Barang berhasil dihapus',
-    'alert-type' => 'success'
-  );
-  return redirect()->route('tambah.barang')->with($notification);
-}
 
 }

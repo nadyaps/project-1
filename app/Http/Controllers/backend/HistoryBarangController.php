@@ -47,7 +47,46 @@ class HistoryBarangController extends Controller
                   ->whereIn('barang_id', $barang->pluck('id'))
                   ->get();
 
-        return view('admin.history.history', compact('barang','pinjam','ambil','kembali','tambah','masuk'));
-    }
+        foreach ($ambil as $item) {
+            $item->activity_type = 'Barang diambil';
+            $item->tanggal = $item->tanggal_ambil;
+            $item->jumlah = $item->jumlah_ambil;
+            $item->user = $item->user->name;
+        }
 
+        foreach ($kembali as $item) {
+            $item->activity_type = 'Barang dikembalikan';
+            $item->tanggal = $item->tanggal_kembali;
+            $item->jumlah = $item->jumlah_kembali;
+            $item->user = $item->user->name;
+
+        }
+
+        foreach ($pinjam as $item) {
+            $item->activity_type = 'Barang dipinjam';
+            $item->tanggal = $item->tanggal_pinjam;
+            $item->jumlah = $item->jumlah_pinjam;
+            $item->user = $item->user->name;
+        }
+
+        foreach ($tambah as $item) {
+            $item->activity_type = 'Barang ditambahkan';
+            $item->tanggal = $item->tanggal_tambah;
+            $item->jumlah = $item->jumlah_tambah;
+        }
+
+        foreach ($masuk as $item) {
+            $item->activity_type = 'Register Barang';
+            $item->tanggal = $item->tanggal_masuk;
+            $item->jumlah = $item->jumlah_masuk;
+        }
+
+
+        $history = $barang->concat($pinjam)->concat($kembali)->concat($tambah)->concat($masuk)->concat($ambil)
+                ->sortByDesc('tanggal')
+                ->all();
+
+        return view('admin.history.history', compact('barang','pinjam','ambil','kembali','tambah','masuk', 'history'));
+    }
+    
 }

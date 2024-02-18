@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\MasukBarangController;
@@ -28,6 +30,11 @@ use App\Http\Controllers\backend\TambahBarangController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+ 
+Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
+Route::get('/auth/{provider}/callback', [ProviderController::class,'callback']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -61,7 +68,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
   Route::post('update/password' , [Controller::class, 'UpdatePassword'])
   ->name('update.password');
 
-  Route::fallback(function () {
+  Route::fallback(function () { 
     return view('404_page');
   });
   
@@ -75,7 +82,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('create/pinjam/barang' , 'CreatePinjamBarang')->name('create.pinjam.barang');
     Route::post('store/pinjam/barang' , 'StorePinjamBarang')->name('store.pinjam.barang');
     Route::get('view/pinjam/barang/{id}' , 'ViewPinjamBarang')->name('view.pinjam.barang');
+    Route::get('edit/pinjam/barang/{id}', 'EditPinjamBarang')->name('edit.pinjam.barang');
     Route::get('delete/pinjam/barang/{id}' , 'DeletePinjamBarang')->name('delete.pinjam.barang');
+    Route::post('update/pinjam/barang' , 'UpdatePinjamBarang')->name('update.pinjam.barang');
 
   });
 
@@ -86,6 +95,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('store/ambil/barang' , 'StoreAmbilBarang')->name('store.ambil.barang');
     Route::get('view/ambil/barang/{id}' , 'ViewAmbilBarang')->name('view.ambil.barang');
     Route::get('delete/ambil/barang/{id}' , 'DeleteAmbilBarang')->name('delete.ambil.barang');
+    Route::get('edit/ambil/barang/{id}', 'EditAmbilBarang')->name('edit.ambil.barang');
+    Route::post('update/ambil/barang' , 'UpdateAmbilBarang')->name('update.ambil.barang');
 
   });
 
@@ -177,7 +188,7 @@ Route::controller(TambahBarangController::class)->group(function(){
   Route::post('/admin/storetambah' , 'StoreTambahBarang')->name('store.tambah');
   Route::get('/admin/viewtambah/{id}' , 'ViewTambahBarang')->name('view.tambah');
   Route::get('/admin/edittambah/{id}' , 'EditTambahBarang')->name('edit.tambah');
-  Route::post('/admin/updatetambah/' , 'UpdateTambahBarang')->name('update.tambah');
+  Route::post('/admin/updatetambah' , 'UpdateTambahBarang')->name('update.tambah');
   Route::get('/admin/deletetambah/{id}' , 'DeleteTambahBarang')->name('delete.tambah');
 });
 

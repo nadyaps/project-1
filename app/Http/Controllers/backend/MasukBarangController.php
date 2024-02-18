@@ -34,7 +34,6 @@ class MasukBarangController extends Controller
       
       $barang = Barang::where('id', $request->id_barang)->first();
 
-      
         $barang = new Barang;
         $barang->id_barang = $request->id_barang;
         $barang->serial_number = $request->serial_number;
